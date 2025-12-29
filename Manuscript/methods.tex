@@ -1,0 +1,162 @@
+\section{Methodology}
+\label{sec:method}
+This study adopts a design-based research (DBR) approach grounded in the Pirie-Kieren framework for recursive mathematical understanding. Building on a prior iteration examining the viability of AI agents in calculus instruction (Edwards et al., 2024), this second iteration focuses on Taylor series through extended student-AI dialogues. Our goal was to examine how students engaged with a custom-designed AI learning partner during an extended mathematical dialogue about Taylor series. Rather than treating AI as a static instructional tool, we conceptualized it as a responsive tutor that adapts its teaching persona based on each student's responses to a brief personality profiling phase.
+
+\subsection{Participants and Context}
+
+Participants were drawn from three sections of a second-semester undergraduate calculus course ("Calculus II") taught at Sichuan University by Zheng Yang (a co-author of this paper). The course covers topics such as infinite series, convergence tests, and Taylor approximations. All students were invited to participate in the AI-based activity as part of a learning module on Taylor series. Section 4 included 41 participants; Section 5 included 47; and Section 6, 37. All three sections (Sections 4, 5 and 6) met twice weekly, on Mondays and Wednesdays. In all sections, students were given approximately 50 minutes to complete the activity. A handful of students in each section remained beyond the scheduled class time to finish their work. In Figure~\ref{fig:sichuan-classroom}, we provide photos from the study location (a classroom at Sichuan University).
+
+\begin{figure}[ht]
+  \centering
+  \caption{Classroom at Sichuan University where AI-based activity took place.}
+  \includegraphics[width=0.56\linewidth]{figures/fig2.png}
+  \label{fig:sichuan-classroom}
+  %\vspace{0.2em}
+  \begin{minipage}[t]{\linewidth}
+    \raggedright
+    \footnotesize
+    \textit{Note.} Most students accessed the AI learning module using personal laptops or smartphones, choosing platforms based on convenience and access (e.g., DeepSeek, ChatGPT). Some students preferred completing the activity on their phones, leveraging translation features or switching between English and Chinese as needed.
+  \end{minipage}
+\end{figure}
+\FloatBarrier
+
+
+Although students ultimately submitted individual work, they were encouraged to discuss ideas informally with peers in their group. According to instructor observation, most students took the genAI work seriously and remained engaged throughout the session. Participants submitted complete genAI conversation transcripts as part of their work, forming the core of our collected data. We used these transcripts to analyze both students’ mathematical thinking and the nature of their engagement with genAI.
+
+The activity was administered in mid-May, during week 13 of the spring semester. Notably, this was the first time the instructor (Zheng, one of the authors of this study) had engaged his students with genAI for the explicit purpose of building mathematical understanding. As indicated by responses to our post-activity survey (see Appendix D), all respondents (100\%) reported prior experience with large language models (LLMs). The most widely used platforms were DeepSeek (93\%), ChatGPT (52\%), and, to a lesser extent, Claude.ai (4\%) and other LLMs (35\%). Many students reported experience with multiple platforms. For this assignment, 69\% of students chose to work independently, while 31\% collaborated with peers. All participants received the same prompt to ensure analytic consistency across platforms and work styles. More detailed survey findings appear in the Data Analysis section (Tables 3a–3c).
+
+\subsection{AI Learning Module and Prompt Design}
+
+The core learning activity was mediated by a single prompt designed for use with genAI. A copy of the complete prompt is provided in Appendix A. The prompt unfolded in three phases:
+\begin{enumerate}[itemsep=0.2em]
+  \item Phase I: A brief personality-profiling phase to determine the student's preferred communication and instructional style,
+  \item Phase II: The construction of an AI chat persona based on the particular student's responses to the profile (this step is not visible to the student using the prompt),
+  \item Phase III: A five-step, interactive problem-solving dialogue involving a real-world Taylor series application. In this phase, we collected data about the student's mathematical understanding.
+\end{enumerate}
+
+To illustrate how the activity was structured, we present annotated excerpts from the actual prompt over the next few pages, with explanatory rationale grounded in relevant literature.
+
+\subsubsection*{Prompt Excerpt: Framing the Activity}
+\begin{quote}\ttfamily
+You are a Personality-based AI Teacher Generator. Your goal is to figure out what kind of teacher I would learn best from---not based on what I say I want, but based on how I respond to different tones, energies, and teaching styles. Once you’ve built my teacher profile, you will become that teacher and help me work through a real academic challenge. You’re here to guide, challenge, and support me---but never do the work for me.
+\end{quote}
+\noindent This introduction within the prompt positions the AI not as a passive information-delivery tool, but as an agentic, responsive instructor. The emphasis on adaptability and personalization reflects principles of culturally responsive pedagogy and constructivist learning theory (Gay, 2010; Vygotsky, 1978). By foregrounding the idea that effective instruction must be based on learner responsiveness rather than expressed preference, the prompt echoes D'Mello and Graesser's (2012) findings on the importance of adaptive affective support in intelligent tutoring systems.
+
+\subsubsection*{Prompt Excerpt: Five-Step Mathematical Task}
+\begin{quote}\ttfamily
+Once you become my teacher, guide me through the following challenge, one step at a time...
+\begin{enumerate}[noitemsep]
+\item
+Describe a real-world problem.
+\item
+Identify a function involved and explain why it can't be used directly.
+\item
+Use a Taylor polynomial to approximate the function.
+\item
+Discuss the accuracy and limitations of the approximation.
+\item
+Reflect on how this process changed your understanding of Taylor series and what role I---the AI---played in helping you think differently.
+\end{enumerate}
+\end{quote}
+
+\noindent These five steps scaffold a recursive inquiry aligned with Pirie and Kieren’s conceptual model. Beginning with real-world application and culminating in reflective abstraction, the task sequence mirrors Boaler’s (1998) advocacy for contextualized mathematical engagement and Schoenfeld’s (2004) emphasis on metacognition. By encouraging learners to cycle through layers of doing, representing, and formalizing, the structure supports movement across the Pirie--Kieren levels of understanding.
+
+\subsubsection*{Prompt Excerpt: Profiler Phase}
+\begin{quote}\ttfamily
+Start by introducing yourself as a temporary AI profiler... Ask 3–5 questions total, one at a time...
+\begin{itemize}[noitemsep]
+\item My communication preferences
+\item My comfort with humor or challenge
+\item What frustrates me when learning
+\item Characters or people I’d want as a teacher
+\item How I like to be corrected
+\end{itemize}
+\end{quote}
+\vspace{-1em}
+\noindent These profiling questions operationalize the affective and interpersonal aspects of instruction. Asking about communication preferences and correction style allows the genAI to support autonomy and reduce threat, in line with self-determination theory (Ryan \& Deci, 2000). Diffusing frustration through humor reflects work by Wanzer et al. (2010) and D’Mello \& Graesser (2012) on the role of emotion in learning. Finally, asking students to imagine a preferred teacher figure builds narrative rapport and social presence, which Zepeda et al. (2015) identify as key to learner trust and engagement in virtual environments.
+
+\subsection{Data Collection}
+\subsubsection*{Student Submissions}
+The primary data source for this study consisted of complete transcripts of each student's genAI interaction, submitted electronically as PDF or docx files. The transcripts provided rich, authentic evidence of students' evolving mathematical understanding, reasoning processes, and responses to AI-guided instruction. In total, we analyzed 127 submitted transcripts: 41 from Section 4, 47 from Section 5, 2 pilot transcripts from Section 3, and 37 transcripts from Section 6.
+
+\subsubsection*{Submission Metadata}
+Metadata recorded for each transcript included section, group, submission format, and the genAI platform used (ChatGPT, Claude, or DeepSeek). All submissions were de-identified before analysis. Files were systematically sorted, renamed, and batched for subsequent analysis.
+
+\subsubsection*{Student Surveys}
+Following the AI-mediated learning activity, we administered a 12-item survey to all participants. The purpose was to gather information about students’ backgrounds and experiences with genAI, typical usage patterns, and attitudes towards genAI as a learning tool. The survey included a combination of multiple choice, short response, Likert-style, and one open-ended question inviting free-form comments about their experience. We also sought insight into how students approached the assignment---such as the languages used, translation workflows, and the extent to which the experience supported English language practice.
+
+The survey was administered as soon as possible after the activity to minimize recall bias. A total of 146 students completed the survey, which exceeds the number of analyzed transcripts. This discrepancy is explained by students who attended the class session but either worked collaboratively or did not submit an individual transcript.
+
+\subsubsection*{Graduate Student Interview}
+After the administration of the survey, we conducted a semi-structured interview with the graduate assistant (GA) who served as the instructor's liaison for data collection. The GA occupied a unique vantage point---neither a professor nor an undergraduate student---positioned between the instructor and the course participants. Having collected all submitted transcripts and observed students throughout the activity session, the GA could offer firsthand observations about student engagement patterns, work habits, and attitudes that might not surface in self-reported survey data. The interview was conducted via Zoom, with the session chat and transcript recorded for further analysis. Questions were semi-structured, allowing for both targeted follow-up on survey results and open-ended reflection on methodological observations, student behaviors, and the GA's interpretation of how students navigated the genAI-mediated activity. Data from this interview contextualizes and extends our findings, providing an insider perspective that triangulates with transcript analysis and survey responses.
+
+\subsection{Method of Analysis}
+
+Our analysis followed a two-phase process: Phase I involved semi-automated transcript screening to estimate student engagement through word-count metrics. Phase II applied the Pirie-Kieren Work Analysis Protocol (PK-WAP) to 30 anchor transcripts representing high talk, low talk, and noteworthy cases (genAI errors, creative detours, language-switching, unexpected moves). Survey responses were analyzed descriptively and thematically, with results reported in aggregate to provide a comprehensive picture of participant backgrounds and attitudes.
+
+\subsubsection*{Phase I: Transcript Screening}
+We began our analysis of student transcripts with an initial screening of word counts. At this stage, our goal was to estimate the proportion of student talk—using this percentage as a proxy for engagement. No qualitative coding or application of the Pirie–Kieren framework was used during this phase. Instead, we used a semi-automated approach: manual calibration on five transcripts followed by automated word counting for the remaining 122 transcripts. Our transcript screening protocol is described in detail in Appendix B; however, here we summarize the conventions for those more interested in the process and less interested in the technical details of how we define it within a genAI context.
+
+To ensure inter-rater consistency, the three researchers (Zheng, Eleanor, Todd) calibrated on five transcripts (P79-G8-S5, P21-G5-S5, P100-G12-S4, P106-GX-S6, P76-GX-S6) selected by Zheng for their format diversity and representativeness. Working independently, each researcher manually recorded word counts by highlighting AI passages in LibreOffice/Google Docs (which uses whitespace-based splitting), counting the selection, then repeating for student passages. Page-by-page tallies were recorded on paper and summed to obtain transcript totals. \textbf{Researchers excluded initial boilerplate sections}—personality tests and teacher profile prompts—that preceded Taylor series content, as these pre-tutoring exchanges were not part of the mathematical learning dialogue. After each researcher completed their independent analysis of a transcript, the team met to compare results and discuss discrepancies. Through this iterative, one-at-a-time process, we progressively refined a shared protocol for speaker attribution and word counting conventions.
+
+\textbf{Defining a word.} We counted words using simple whitespace-based splitting, consistent with standard word processors like LibreOffice Writer and Google Docs. This approach treats any sequence of characters separated by spaces as a word token. While this method does not provide sophisticated handling of mathematical notation or non-English text, it offered consistency with our manual calibration approach and proved adequate for our analytic goal of estimating relative engagement levels across transcripts.
+
+\textbf{Defining an utterance.} We defined each utterance as a speaker turn, identified either by explicit labels (e.g., "Student:" or "AI:") or by formatting and linguistic cues embedded in the transcript. AI-generated turns were typically recognizable through boilerplate phrases (e.g., "I'm your tutor"), stylized punctuation (e.g., theatrical symbols like @ or ©), or lengthy instructional commentary. Student turns, by contrast, tended to be conversational, brief, and reflective in tone. When speaker attribution was ambiguous, we attributed turns conservatively and flagged such cases for team discussion during calibration meetings.
+
+This meet-after-each-transcript approach allowed us to identify edge cases, clarify ambiguous attribution scenarios, and refine our counting conventions incrementally. When discrepancies across raters exceeded 10\%, we discussed the transcript line by line, resolving ambiguities in attribution (e.g., paraphrased AI responses, translated student comments, or mixed-language passages). By the completion of the fifth calibration transcript, the team had converged on a stable, explicit ruleset with inter-rater agreement within the 10\% tolerance threshold. 
+
+\textbf{Automation of Phase I Screening.} These calibration sessions established the foundation for developing a Python-based parsing pipeline to process the remaining 122 transcripts. The automated pipeline replicated the manual approach: using whitespace-based word splitting (matching LibreOffice and Google Docs) and implementing the speaker attribution heuristics refined during calibration. The pipeline detected and excluded boilerplate sections (personality tests, teacher profile prompts) by identifying where Taylor series content began using keyword markers ("1715," "1685," "Brook Taylor," "early 1700s"). All automated outputs were reviewed by the research team. Transcripts exhibiting edge cases—such as extreme percentages (0\% or 100\% student talk), ambiguous speaker attribution, or formatting irregularities—were flagged for manual inspection and resolved through team discussion. This semi-automated approach ensured both scalability and methodological consistency with the manual calibration process.
+
+Because Phase I involved continuous data (word counts), we did not compute a formal inter-rater reliability statistic. In contrast, Phase II employed categorical coding of Pirie–Kieren layers, for which we computed inter-rater reliability using Cohen's $\kappa (\ge .80)$, as described in Appendix B.
+
+\subsubsection*{Phase II: Pirie-Kieren Work Analysis}
+Once the research team agreed on initial screening numbers, we selected 10 transcripts with the highest student talk percentages, 10 with the lowest, and 10 \emph{``noteworthy''} transcripts (e.g., those with GenAI errors, creative detours, interesting failures). Those with negligible student contribution (i.e., <10\%) were excluded and replaced with the next-lowest cases to ensure sufficient material for Pirie–Kieren analysis. To facilitate systematic review of the 84 middle-range candidates, we developed a web-based interface that displayed original student submissions alongside categorical tagging options (see Appendix E \& F), enabling efficient screening and export of annotated selections in a shareable format. This strategy enabled us to compare interaction patterns across a range of engagement levels, allowing us to identify affordances and limitations of genAI-mediated learning. 
+
+\textbf{AI-Assisted Qualitative Analysis.} These 30 anchor transcripts were analyzed using the Pirie–Kieren Work Analysis Protocol (PK-WAP), a structured interpretive framework designed to code for evidence of recursive mathematical understanding. Given the labor-intensive nature of qualitative memo generation, we developed a standardized prompt protocol (see Appendix E \& F) to guide AI-assisted analysis using GPT-4. Each transcript was processed to generate an initial analytic memo following a fixed template that included: (1) page-by-page word counts and engagement metrics, (2) evidence for all eight Pirie–Kieren layers, (3) identification of recursive "folding back" episodes, (4) representative quotes, and (5) missed pedagogical opportunities. The theory-methods bridge was explicit: Pirie and Kieren's (1994) eight nested levels---Primitive Doing, Image Making, Image Having, Property Noticing, Formalising, Observing, Structuring, Inventising---provided both the conceptual vocabulary and the coding categories for PK-WAP analysis, with each level operationalized as observable transcript evidence (e.g., computational attempts for Primitive Doing, visual or metaphorical reasoning for Image Making). All AI-generated memos were then reviewed, validated, and revised by human researchers to ensure interpretive accuracy and consistency with the theoretical framework. To monitor analytic drift across the 30 cases, subsequent memos were compared against a collaboratively constructed "gold-standard" exemplar. Our full PK-WAP protocol, analytic memo template, and GenAI prompt are detailed in Appendix E \& F.
+
+The analytic process for each transcript included the following features:
+\begin{itemize}[noitemsep]
+\item \textbf{Page-by-page review:} Examining each page to extract both AI/teacher and student contributions, including equations and visual elements.
+\item \textbf{Extraction of representative passages:} Annotating notable student and teacher turns as qualitative evidence.
+\item \textbf{Systematic coding for Pirie–Kieren layers:} Coding for evidence of all eight Pirie–Kieren levels (Primitive Doing, Image Making, Image Having, Property Noticing, Formalizing, Observing, Structuring, Inventing), with direct excerpts for each.
+\item \textbf{Coding for recursion/folding back:} Identifying instances of ``folding back'' or recursive movement between conceptual layers.
+\item \textbf{Identification of missed opportunities:} Documenting moments where the AI/teacher dominated, missed a chance to elicit elaboration, or did not prompt student-driven inquiry.
+\item \textbf{Uniform protocol:} While the analytic protocol was applied consistently across all transcripts in terms of structure and coding dimensions, the thirty anchor transcripts were analyzed using a richer version of the protocol, incorporating deeper memoing, page-by-page engagement metrics, and more nuanced Pirie–Kieren coding.
+\end{itemize}
+Lack of evidence for recursion or specific Pirie–Kieren layers was noted as a finding, not a methodological flaw.
+
+\textbf{Data Preparation and OCR Processing.} Because many of the AI–student conversations existed as images embedded within PDFs with no extractable text, we developed a multi-phase process for reconstructing and analyzing each interaction. First, we took screenshots of each page then extracted text from screenshots using optical character recognition (OCR). We took care to preserve formatting cues (line breaks, scene markers, etc.). To fully de-identify participants, we assigned each student a unique code \texttt{P01}, \texttt{P02}, \ldots in order of appearance. We then appended their group and section numbers, yielding filenames like \texttt{P01-G8-S4.txt} (Participant 01, Group 8, Section 4) or \texttt{P03-GX-S6.txt} (Participant 03, Group Unknown, Section 6). These OCR-processed text files became the foundation for both Phase I (Python-based word counting) and Phase II (AI-assisted qualitative analysis).
+
+\textbf{Speaker Attribution Algorithm.} To distinguish between AI-generated and student-generated text within each transcript, we developed a rule-based parsing algorithm that blends structural cues with linguistic heuristics. Because transcript formatting varied---sometimes including symbols like \texttt{@}, quotation marks, or phrases like ``Teacher’s Response''---a single cue was insufficient for reliable speaker attribution. Instead, our approach used multiple criteria:
+
+\begin{itemize}
+\item \textbf{AI turns} were identified by markers such as theatrical punctuation (e.g., \texttt{@}, \texttt{@\&}, or \texttt{©}), quoted speech, metacommentary (e.g., ``Teacher’s Response:''), or elaborative instruction.
+\item \textbf{Student turns} were inferred when lines lacked such markers and appeared between or immediately after AI prompts. Short, declarative, or reflective responses without AI-style flair were treated as student-generated.
+\end{itemize}
+When ambiguity arose, the parser defaulted to attributing untagged lines as student turns if they followed an identified AI response. The logic was validated through manual review of sample transcripts. Table 1 illustrates a representative parsing decision from a student transcript.
+
+\renewcommand{\arraystretch}{1.5}  % Increase line spacing
+
+\begin{table}[htbp]
+\caption{Example of Speaker Attribution Based on Formatting and Context}
+\centering
+\begin{tabular}{llc}
+\toprule
+\textbf{Line No.} & \textbf{Raw Transcript Line} & \textbf{Attributed Speaker} \\
+\midrule
+12 & \makecell[l]{@ Great—let's begin with an example.\\ What's a situation where approximations help?} & AI \\
+13 & If I'm navigating with GPS, it estimates my location. & Student \\
+14 & \makecell[l]{Teacher's Response: That's a perfect setup.\\ Let's build on it.} & AI \\
+15 & Yeah, I like when math feels less formal. & Student \\
+16 & \makecell[l]{© Exactly! Now let's dig into why...} & AI \\
+\bottomrule
+\end{tabular}
+\vspace{1ex}
+\begin{tablenotes}
+\small
+\item \textit{Note.} AI turns often include stylized markers (e.g., @, ©) or quoted responses, while student turns are more conversational and lack formal structuring.
+\end{tablenotes}
+\end{table}
+\FloatBarrier
+%\subsection{Ethical Considerations}
+%Because the instructional activity was embedded within a regularly scheduled university course in China, no formal institutional review board (IRB) process was required or available. Nonetheless, we took deliberate steps to ensure ethical standards were upheld: students were informed of the study's purpose, data were anonymized prior to analysis, and participation in the study (via transcript submission) was optional and did not affect students' grades. Data were stored securely in encrypted folders shared only among the co-authors.

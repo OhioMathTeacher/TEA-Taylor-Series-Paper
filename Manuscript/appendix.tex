@@ -1,0 +1,763 @@
+\appendix
+\clearpage
+\section*{Appendix A: Full AI Prompt}%
+\label{sec:fullprompt}
+\begin{flushleft}
+\ttfamily
+You are a Personality-based AI Teacher Generator. Your goal is to figure out what kind of teacher I would learn best from—not based on what I say I want, but based on how I respond to different tones, energies, and teaching styles. Once you’ve built my teacher profile, you will become that teacher and help me work through a real academic challenge. You’re here to guide, challenge, and support me—but never do the work for me.
+
+\vspace{0.5em}
+\textbf{The Activity (To Be Revealed Step by Step):}
+
+Once you become my teacher, guide me through the following challenge, one step at a time. At each step, ask me a question and offer a small example or nudge to help me think—but don’t give direct answers. Always invite me to take time to think and use pencil and paper and my mind. I need to create a real-world scenario where a Taylor polynomial approximation is the only practical solution.
+
+\begin{enumerate}[noitemsep]
+\item Describe a real-world problem.
+\item Identify a function involved and explain why it can't be used directly.
+\item Use a Taylor polynomial to approximate the function.
+\item Discuss the accuracy and limitations of the approximation.
+\item After guiding me through the steps above, ask me to reflect on this single deep question: How did this process change your understanding of Taylor series, and what role did I—the AI—play in helping you think differently?
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Step 1: Personality Test}
+
+Start by introducing yourself as a temporary AI profiler. Tell me you’ll ask a few short questions to figure out what kind of teacher I respond best to. Ask 3–5 questions total, MUST ask one question at a time. Ask about:
+\begin{itemize}[noitemsep]
+\item My communication preferences
+\item My comfort with humor or challenge
+\item What frustrates me when learning
+\item Characters or people I’d want as a teacher
+\item How I like to be corrected
+\end{itemize}
+Wait for my answer before moving on. Don’t comment on or interpret my answers.
+
+\newpage
+\textbf{Step 2: Internal Teacher Profile (Invisible to Me)}
+
+Based on my responses, quietly build a teacher personality that fits:
+\begin{itemize}[noitemsep]
+\item Tone and energy
+\item Teaching behavior and method
+\item Conversation dynamics
+\item Motivational style
+\item Limits and guardrails
+\end{itemize}
+Don’t share this profile with me. Just become that teacher in Step 3.
+
+\textbf{Step 3: Guide Me Through the Activity}
+
+Now you’re my AI teacher. Begin the activity inviting me to grab a piece of paper and pencil, encourage me to ask you questions, help, and explanations (not just me following a routine), and start with Step 1 above. MUST present each step one at a time, using short prompts and nudges. Ask follow-up questions to deepen my thinking.
+
+\textbf{Rules:}
+\begin{itemize}[itemsep=0.1em]
+\item Don’t give answers. Ever. Nudge, prompt, redirect—but I must do the work.
+\item Make sure I complete all steps comprehensively and only present each new step only after I engage with the current one.
+\item You MUST always invite me to take time to draw, jot down, think, analyze.
+\item Keep it interactive. MUST provide short replies and questions to keep me talking.
+\item Stay focused. If I wander or get vague, bring me back.
+\item Match my style. Use the tone and style you’ve chosen based on my personality test.
+\item Push me. Support me, but don’t let me off easy. You are not a calculator. You are my teacher.
+\end{itemize}
+\end{flushleft}
+\newpage
+\section*{Appendix B — Phase I: Transcript Screening Protocol (Quantitative Baseline)}
+
+\subsection*{Purpose}
+We computed a quantitative baseline of participation for each transcript by estimating the proportion of \textbf{Student} vs. \textbf{AI} talk. The outputs of this phase—page-level counts, transcript totals, and \% Student Talk—were later used to sample cases for the PK--WAP analysis (Appendix\~E).
+
+\subsection*{Materials}
+\begin{itemize}
+\item Source: 127 AI--student transcripts exported as plain text or \texttt{.docx}.
+\item Unit of analysis: the entire transcript, with intermediate \textbf{page} segments retained when present.
+\item Outputs per transcript:
+\begin{enumerate}
+\item Page table: \texttt{Page | Student Words | AI Words}
+\item Transcript totals: \texttt{TOTAL | Student Words | AI Words}
+\item $\%\text{ Student Talk} = 100 \times \frac{\text{Student}}{\text{Student}+\text{AI}}$ (one decimal place)
+\end{enumerate}
+\end{itemize}
+
+\subsection*{Overview of the Procedure}
+\begin{enumerate}
+\item \textbf{Segmentation (keep page markers).} We preserved page markers or layout cues found in the source exports to enable page-level summaries.
+\item \textbf{Speaker attribution (Student vs. AI).} Lines were attributed to \textbf{Student} or \textbf{AI} using explicit labels where available; when labels were missing or inconsistent, we applied a short set of fallback heuristics (below).
+\item \textbf{Tokenization (what counts as a ``word'').} We converted each line to word tokens using consistent rules (below) that are robust to punctuation, URLs, and math expressions.
+\item \textbf{Counting and aggregation.} For each page we summed Student and AI words, then aggregated to transcript totals and computed \% Student Talk.
+\item \textbf{Quality checks.} We flagged edge cases for review and ensured simple arithmetic consistency (e.g., Student+AI = Total; \%AI+\%Student $\approx 100$).
+\end{enumerate}
+\newpage
+\subsection*{Speaker Attribution Rules (human-readable)}
+We favored plain, auditable cues over model-specific tricks.
+\begin{itemize}
+\item \textbf{Primary rule:} Use explicit speaker tags when present. Recognized AI labels include: \texttt{AI}, \texttt{Assistant}, \texttt{ChatGPT}, \texttt{Teacher}, \texttt{Tutor}, \texttt{D} (DeepSeek), \texttt{A}, \texttt{T}, and similar variants. Recognized Student labels include: \texttt{Student}, \texttt{User}, \texttt{P} (Person), \texttt{Q} (Query), \texttt{S}, \texttt{U}, \texttt{Me}, and similar variants. Tags are matched case-insensitively and may appear with colons (e.g., \texttt{P:}, \texttt{D:}) or brackets.
+\item \textbf{When tags are missing or inconsistent:}
+\begin{itemize}
+\item \textit{Turn-taking continuity.} Maintain speaker identity within contiguous blocks unless an explicit hand-off (prompt/response structure, quoted system messages) is evident.
+\item \textit{Linguistic cues.} Prompts, explanations, and meta-instructions are typically AI; short answers, clarifications, and `thinking aloud'' are typically Student.
+      \item \textit{Layout/formatting.} Fixed indentation, bullets, or quoted code/preamble are often AI artifacts; margins and inline text tend to be Student.
+      \item \textit{Error tells.} Obvious AI boilerplate (`Here's an explanation\dots'', ``As an AI\dots'') is attributed to AI even if embedded mid-page.
+\end{itemize}
+\item \textbf{Ambiguity policy:} If a stretch could not be assigned confidently, it was flagged for secondary review during QA (see below).
+\end{itemize}
+
+\subsection*{What Counts as a `Word''}
+\begin{itemize}[itemsep=0.1em]
+  \item \textbf{Whitespace-based splitting}: Words are defined as any sequence of characters separated by spaces, consistent with standard word processors (LibreOffice Writer, Google Docs).
+  \item \textbf{URLs and emails}: Each counts as a single token.
+\item \textbf{AI preambles}: Boilerplate phrases (e.g., ``Sure---here's\dots'', ``I can help with \ldots'') are removed prior to counting.
+\end{itemize}
+
+\subsection*{Edge-Case Coverage}
+We verified that the rules above reliably handle:
+\begin{itemize}[itemsep=0.1em]
+\item \textbf{RB1:} Multiple/missing speaker labels and mislabeled lines
+\item \textbf{RB2:} Embedded page markers, section dividers, and unusual formatting
+\item \textbf{RB3:} AI preambles embedded mid-transcript
+\end{itemize}
+
+\subsection*{Quality Assurance}
+\begin{itemize}
+\item \textbf{Manual calibration.} Three researchers independently counted five transcripts using a manual highlighting method: each researcher read the transcript electronically, highlighted AI passages in LibreOffice, performed a word count on the highlighted selection, then repeated for Student passages. This page-by-page process used LibreOffice's built-in word counter (whitespace-based splitting). Researchers recorded tallies on paper copies and summed to obtain transcript totals. \textbf{Researchers excluded AI-generated boilerplate sections} (personality tests, teacher profile setup) that appeared before the actual Taylor series tutoring dialogue began, as these pre-instructional exchanges were not part of the mathematical learning interaction being analyzed. Inter-rater agreement was high (within 10 percentage points on \%Student Talk), validating both the counting rules and the automated implementation.
+\item \textbf{Boilerplate detection in automation.} The automated pipeline replicated the manual exclusion of boilerplate by scanning the first 100 lines of each transcript for personality test markers ("personality test," "ai profiler," "internal teacher profile," "step 1: personality") and then identifying where Taylor content began using historical markers ("1715," "1685," "Brook Taylor," "early 1700s"). Lines before the content start were excluded from word counts but logged in annotated outputs for transparency. This approach ensured that automated counts matched the manual calibration methodology.
+\item \textbf{Double-checks.} A subset of transcripts in each quartile of \% Student Talk was manually reviewed line-by-line to confirm speaker attribution and tokenization.
+\item \textbf{Disagreements.} Ambiguous lines were resolved by consensus; the resulting decisions informed minor clarifications to the rules above.
+\item \textbf{Arithmetic consistency.} We verified Student+AI = Total and \%Student+\%AI = 100.0$\pm$0.1 on every output row. Any failures were flagged for re-evaluation.
+\end{itemize}
+
+\subsection*{Determinism \& Reproducibility}
+To eliminate run-to-run variability, we executed the counting with a \textbf{fixed, deterministic configuration} (temperature~$=0$; fixed model/version; identical prompts/spec across runs). Re-processing the same files under the same configuration yielded \textbf{identical} counts. A scripted pipeline applied the rules uniformly across all transcripts; implementation details and example input/output are provided in the Supplement (Reproducibility Note).
+
+\subsection*{Limitations}
+\begin{itemize}
+\item \textbf{Attribution is rule-based, not diarization.} In noisy or highly edited transcripts, attribution can still require judgment; flagged segments were reviewed manually.
+\item \textbf{Tokenization approximations.} Spoken equivalents for math and the CJK heuristic are principled but approximate; they were chosen for consistency across the corpus rather than linguistic exhaustiveness.
+\item \textbf{Export artifacts.} Rare export quirks (e.g., duplicated prompts, mid-page banners) were filtered when detected.
+\end{itemize}
+
+\subsection*{Worked Example (brief)}
+Consider a page with three Student responses interleaved with two AI prompts. After applying the attribution rules, suppose the page contains \textbf{Student = 178 words} and \textbf{AI = 120 words}. The transcript-level totals sum page counts: % Student Talk is then computed as:
+$100 \times \frac{178}{178 + 120} = 59.7\%.$
+
+\subsection*{Downstream Use (link to Appendix E)}
+The Phase~~I outputs (totals and \% Student Talk) were used to select \textbf{10 high}, \textbf{10 low}, and \textbf{10 noteworthy} cases for the PK--WAP analysis in Appendix~~E, which focuses on qualitative interpretation rather than counting.
+\newpage
+
+\section*{Appendix C: AI and Individual Student Talk Metrics}
+\addcontentsline{toc}{section}{AI and Individual Student Talk Metrics}
+\renewcommand{\arraystretch}{1.2}
+
+% Don't use the \caption{} in longtable, instead:
+\noindent\textbf{Table 5}\\
+\noindent\textbf{AI and Student Talk Analysis for All Transcripts}\\
+\noindent\textit{Descriptive statistics for AI and student word counts and talk percentages across transcripts.}
+
+\begin{longtable}[l]{l c c c c c}
+\toprule
+\textbf{Student} & \textbf{AI Words} & \textbf{Student Words} & \textbf{Total} & \textbf{\% AI} & \textbf{\% Student} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Student} & \textbf{AI Words} & \textbf{Student Words} & \textbf{Total} & \textbf{\% AI} & \textbf{\% Student} \\
+\midrule
+\endhead
+P01-G8-S4 & 3558 & 203 & 3761 & 94.6 & 5.4 \\
+P01-G8-S4 & 1468 & 80 & 1548 & 94.8 & 5.2 \\
+P02-G4-S4 & 1604 & 129 & 1733 & 92.6 & 7.4 \\
+P03-GX-S6 & 456 & 3019 & 3475 & 13.1 & 86.9 \\
+P04-GX-S6 & 1279 & 924 & 2203 & 58.1 & 41.9 \\
+P05-G9-S4 & 1183 & 104 & 1287 & 91.9 & 8.1 \\
+P06-GX-S6 & 1985 & 0 & 1985 & 100.0 & 0.0 \\
+P07-G5-S4 & 1354 & 0 & 1354 & 100.0 & 0.0 \\
+P08-GX-S6 & 580 & 1951 & 2531 & 22.9 & 77.1 \\
+P09-GX-S5 & 547 & 1101 & 1648 & 33.2 & 66.8 \\
+P10-G8-S5 & 1810 & 406 & 2216 & 81.7 & 18.3 \\
+P100-G12-S4 & 708 & 270 & 978 & 72.4 & 27.6 \\
+P101-G4-S5 & 97 & 122 & 219 & 44.3 & 55.7 \\
+P102-G3-S5 & 806 & 78 & 884 & 91.2 & 8.8 \\
+P103-G2-S5 & 251 & 1025 & 1276 & 19.7 & 80.3 \\
+P104-G1-S5 & 505 & 421 & 926 & 54.5 & 45.5 \\
+P105-G10-S5 & 801 & 1450 & 2251 & 35.6 & 64.4 \\
+P106-G15-S4 & 2563 & 1162 & 3725 & 68.8 & 31.2 \\
+P107-GX-S6 & 990 & 2557 & 3547 & 27.9 & 72.1 \\
+P108-G14-S4 & 428 & 383 & 811 & 52.8 & 47.2 \\
+P109-G14-S4 & 3429 & 212 & 3641 & 94.2 & 5.8 \\
+P11-G10-S4 & 1243 & 1010 & 2253 & 55.2 & 44.8 \\
+P110-GX-S6 & 2088 & 499 & 2587 & 80.7 & 19.3 \\
+P111-G6-S5 & 809 & 881 & 1690 & 47.9 & 52.1 \\
+P112-GX-S5 & 1170 & 372 & 1542 & 75.9 & 24.1 \\
+P113-GX-S5 & 592 & 669 & 1261 & 46.9 & 53.1 \\
+P114-G1-S4 & 1448 & 622 & 2070 & 70.0 & 30.0 \\
+P115-G11-S4 & 316 & 233 & 549 & 57.6 & 42.4 \\
+P116-G9-S5 & 1426 & 936 & 2362 & 60.4 & 39.6 \\
+P117-G11-S4 & 1237 & 930 & 2167 & 57.1 & 42.9 \\
+P118-G7-S4 & 606 & 638 & 1244 & 48.7 & 51.3 \\
+P119-GX-S6 & 1392 & 244 & 1636 & 85.1 & 14.9 \\
+P12-GX-S6 & 126 & 622 & 748 & 16.8 & 83.2 \\
+P120-G16-S5 & 388 & 454 & 842 & 46.1 & 53.9 \\
+P121-G11-S4 & 1218 & 850 & 2068 & 58.9 & 41.1 \\
+P122-G13-S4 & 767 & 2096 & 2863 & 26.8 & 73.2 \\
+P123-GX-S6 & 2631 & 474 & 3105 & 84.7 & 15.3 \\
+P124-GX-S6 & 842 & 1843 & 2685 & 31.4 & 68.6 \\
+P125-GX-S6 & 434 & 677 & 1111 & 39.1 & 60.9 \\
+P126-GX-S6 & 932 & 985 & 1917 & 48.6 & 51.4 \\
+P127-G3-S4 & 1155 & 1010 & 2165 & 53.3 & 46.7 \\
+P13-G4-S5 & 165 & 158 & 323 & 51.1 & 48.9 \\
+P14-GX-S6 & 1106 & 902 & 2008 & 55.1 & 44.9 \\
+P15-G10-S6 & 125 & 2252 & 2377 & 5.3 & 94.7 \\
+P16-G3-S5 & 279 & 250 & 529 & 52.7 & 47.3 \\
+P17-G6-S5 & 297 & 27 & 324 & 91.7 & 8.3 \\
+P18-G4-S4 & 513 & 736 & 1249 & 41.1 & 58.9 \\
+P19-G3-S4 & 3424 & 556 & 3980 & 86.0 & 14.0 \\
+P20-GX-S6 & 585 & 503 & 1088 & 53.8 & 46.2 \\
+P21-G5-S5 & 323 & 1197 & 1520 & 21.2 & 78.8 \\
+P22-GX-S6 & 413 & 84 & 497 & 83.1 & 16.9 \\
+P23-G10-S5 & 230 & 1760 & 1990 & 11.6 & 88.4 \\
+P24-G7-S4 & 875 & 446 & 1321 & 66.2 & 33.8 \\
+P25-GX-S6 & 1260 & 407 & 1667 & 75.6 & 24.4 \\
+P26-G13-S5 & 2548 & 734 & 3282 & 77.6 & 22.4 \\
+P27-G5-S4 & 1304 & 0 & 1304 & 100.0 & 0.0 \\
+P28-G16-S5 & 647 & 1053 & 1700 & 38.1 & 61.9 \\
+P29-GX-S6 & 1287 & 808 & 2095 & 61.4 & 38.6 \\
+P30-G5-S5 & 102 & 378 & 480 & 21.2 & 78.8 \\
+P31-G13-S5 & 0 & 1461 & 1461 & 0.0 & 100.0 \\
+P32-G9-S4 & 2334 & 84 & 2418 & 96.5 & 3.5 \\
+P33-G16-S3 & 456 & 1215 & 1671 & 27.3 & 72.7 \\
+P34-GX-S6 & 704 & 2125 & 2829 & 24.9 & 75.1 \\
+P35-G1-S4 & 264 & 1526 & 1790 & 14.7 & 85.3 \\
+P36-G18-S4 & 1374 & 1302 & 2676 & 51.3 & 48.7 \\
+P37-G18-S4 & 1781 & 0 & 1781 & 100.0 & 0.0 \\
+P38-G17-S5 & 158 & 525 & 683 & 23.1 & 76.9 \\
+P39-G4-S6 & 97 & 122 & 219 & 44.3 & 55.7 \\
+P40-G12-S5 & 318 & 230 & 548 & 58.0 & 42.0 \\
+P41-GX-S6 & 128 & 214 & 342 & 37.4 & 62.6 \\
+P42-G11-S3 & 501 & 694 & 1195 & 41.9 & 58.1 \\
+P43-G18-S4 & 208 & 231 & 439 & 47.4 & 52.6 \\
+P44-G6-S5 & 146 & 660 & 806 & 18.1 & 81.9 \\
+P45-G11-S5 & 821 & 710 & 1531 & 53.6 & 46.4 \\
+P46-G14-S5 & 768 & 1370 & 2138 & 35.9 & 64.1 \\
+P47-G13-S5 & 1565 & 1039 & 2604 & 60.1 & 39.9 \\
+P48-G7-S4 & 1109 & 632 & 1741 & 63.7 & 36.3 \\
+P49-G10-S5 & 265 & 1207 & 1472 & 18.0 & 82.0 \\
+P50-G8-S4 & 139 & 311 & 450 & 30.9 & 69.1 \\
+P51-GX-S6 & 505 & 519 & 1024 & 49.3 & 50.7 \\
+P52-GX-S6 & 0 & 810 & 810 & 0.0 & 100.0 \\
+P53-G12-S4 & 0 & 177 & 177 & 0.0 & 100.0 \\
+P54-GX-S6 & 339 & 190 & 529 & 64.1 & 35.9 \\
+P55-G13-S4 & 90 & 266 & 356 & 25.3 & 74.7 \\
+P56-GX-S5 & 1750 & 0 & 1750 & 100.0 & 0.0 \\
+P57-G7-S5 & 451 & 711 & 1162 & 38.8 & 61.2 \\
+P58-G14-S5 & 716 & 578 & 1294 & 55.3 & 44.7 \\
+P59-GX-S6 & 1355 & 1228 & 2583 & 52.5 & 47.5 \\
+P60-G3-S5 & 1580 & 580 & 2160 & 73.1 & 26.9 \\
+P61-G6-S4 & 578 & 1034 & 1612 & 35.9 & 64.1 \\
+P62-G7-S5 & 156 & 1100 & 1256 & 12.4 & 87.6 \\
+P63-GX-S6 & 183 & 1816 & 1999 & 9.2 & 90.8 \\
+P64-GX-S6 & 223 & 0 & 223 & 100.0 & 0.0 \\
+P65-GX-S6 & 22 & 44 & 66 & 33.3 & 66.7 \\
+P66-G11-S5 & 1260 & 406 & 1666 & 75.6 & 24.4 \\
+P67-G9-S5 & 52 & 84 & 136 & 38.2 & 61.8 \\
+P68-G18-S4 & 1525 & 432 & 1957 & 77.9 & 22.1 \\
+P69-G2-S5 & 250 & 266 & 516 & 48.4 & 51.6 \\
+P70-G13-S4 & 2491 & 2202 & 4693 & 53.1 & 46.9 \\
+P71-G18-S5 & 443 & 512 & 955 & 46.4 & 53.6 \\
+P72-G12-S4 & 2074 & 467 & 2541 & 81.6 & 18.4 \\
+P73-G14-S5 & 2348 & 538 & 2886 & 81.4 & 18.6 \\
+P74-G10-S4 & 51 & 69 & 120 & 42.5 & 57.5 \\
+P75-GX-S6 & 158 & 354 & 512 & 30.9 & 69.1 \\
+P76-GX-S6 & 1101 & 3515 & 4616 & 23.9 & 76.1 \\
+P77-G8-S5 & 2545 & 98 & 2643 & 96.3 & 3.7 \\
+P78-G14-S4 & 2789 & 595 & 3384 & 82.4 & 17.6 \\
+P79-G8-S5 & 1419 & 1521 & 2940 & 48.3 & 51.7 \\
+P80-G12-S5 & 1430 & 1415 & 2845 & 50.3 & 49.7 \\
+P81-G14-S5 & 722 & 392 & 1114 & 64.8 & 35.2 \\
+P82-G13-S6 & 3024 & 1615 & 4639 & 65.2 & 34.8 \\
+P83-G8-S4 & 0 & 887 & 887 & 0.0 & 100.0 \\
+P84-GX-S6 & 0 & 303 & 303 & 0.0 & 100.0 \\
+P85-GX-S6 & 1025 & 1801 & 2826 & 36.3 & 63.7 \\
+P86-G13-S4 & 287 & 1741 & 2028 & 14.2 & 85.8 \\
+P87-G7-S6 & 283 & 1354 & 1637 & 17.3 & 82.7 \\
+P88-GX-S6 & 775 & 494 & 1269 & 61.1 & 38.9 \\
+P89-G2-S4 & 1392 & 1211 & 2603 & 53.5 & 46.5 \\
+P90-GX-S6 & 1380 & 343 & 1723 & 80.1 & 19.9 \\
+P91-G6-S5 & 0 & 534 & 534 & 0.0 & 100.0 \\
+P92-G9-S5 & 170 & 481 & 651 & 26.1 & 73.9 \\
+P93-G1-S4 & 958 & 147 & 1105 & 86.7 & 13.3 \\
+P94-G6-S4 & 1286 & 73 & 1359 & 94.6 & 5.4 \\
+P95-G3-S5 & 381 & 1121 & 1502 & 25.4 & 74.6 \\
+P96-G9-S5 & 0 & 0 & 0 & 100.0 & 0.0 \\
+P97-G17-S5 & 436 & 267 & 703 & 62.0 & 38.0 \\
+P98-G8-S4 & 854 & 0 & 854 & 100.0 & 0.0 \\
+P99-G2-S4 & 346 & 327 & 673 & 51.4 & 48.6 \\
+\bottomrule
+\end{longtable}
+\footnotetext{Data unavailable due to OCR limitations. Placeholder row retained for dataset continuity.}
+\begin{tablenotes}[para,flushleft]
+\footnotesize\textit{Note.} Cases flagged as probable AI-profiling or demonstration scripts (shaded) were excluded from anchor-case selection but retained in descriptive analyses.
+\end{tablenotes}
+\newpage
+\section*{Appendix D: Post-Activity Survey}
+
+\begin{description}[leftmargin=2.6em, labelsep=0.5em, font=\bfseries, align=left, labelwidth=2.3em, itemindent=0em]
+  \item[1. Name] \textit{(Open-ended)}
+  \item[2. Student ID] \textit{(Open-ended)}
+  \item[3. Which large language models (LLMs) have you used before?] \textit{(Select all that apply)}
+      ChatGPT (OpenAI) \\
+      DeepSeek \\
+      Claude.ai \\
+      Other (please specify) \\
+      None before this course
+
+  \item[4. How long have you been using LLMs?] \textit{(Single choice)}\\
+      Less than 1 month \\
+      1--6 months \\
+      7--12 months \\
+      Over 1 year \\
+      I have not used
+
+  \item[5. How often do you use LLMs?] \textit{(Single choice)}\\
+      Daily \\
+      Never \\
+      Less than once a week \\
+      Once a week \\
+      Several times per week
+ 
+  \item[6. For what purposes do you typically use LLMs?] \textit{(Select all that apply)}\\
+      To complete homework or assignments more quickly \\
+      To check or correct my own work \\
+      To help me learn or understand new topics \\
+      To search for information \\
+      For entertainment or curiosity \\
+      Other (please specify)
+
+  \item[7. Have you used LLMs (like DeepSeek) in other university courses?] \textit{(Single choice)}\\
+      Yes, frequently \\
+      Yes, sometimes \\
+      No, only for this course \\
+      No, never
+
+  \item[8. How do your other professors view the use of AI tools like ChatGPT?] \textit{(Single choice)}\\
+      They encourage it \\
+      They allow it, but do not encourage \\
+      They discourage it \\
+      I don't know \\
+      Not applicable
+\newpage
+  \item[9. Did you work alone or with others for this assignment?] \textit{(Single choice)}
+    
+      Alone \\
+      With classmates (group discussion) \\
+      Other (please specify)
+
+  \item[10. This assignment helped me learn calculus concepts better.] \textit{(Likert scale)}
+
+      Strongly disagree \\
+      Disagree \\
+      Neutral \\
+      Agree \\
+      Strongly agree
+
+  \item[11. After this assignment, my attitude toward using AI for learning is:] \textit{(Likert scale)}
+
+      Much more positive \\
+      Somewhat more positive \\
+      No change \\
+      Somewhat more negative \\
+      Much more negative
+
+\item[12.] \textbf{Please share any other comments about your experience using AI or LLMs for this assignment:} \textit{(Open-ended)}
+\end{description}
+
+\newpage
+% Appendix E: Pirie–Kieren Work Analysis Protocol (PK-WAP)
+\section*{Appendix E: Pirie--Kieren Work Analysis Protocol}
+
+\subsection*{I. Overview of the Method}
+Initially, we reviewed all 127 transcripts to estimate word counts and calculate student talk percentages as a proxy for engagement (see Appendix C). We selected 10 transcripts with the highest student talk percentages, 10 with the lowest percentages, and 10 "noteworthy" cases (as defined in Section 4.3) to form a contrastive sample of 30 anchor cases. 
+
+Transcripts with negligible student contribution (i.e., <10\%) were excluded and replaced with the next-lowest cases to ensure sufficient material for Pirie-Kieren analysis. Finally, we reviewed the full set of memos to identify recurring themes, interpret contrasts across the high- and low-engagement groups, and generate analytic trends related to recursive reasoning, conceptual depth, and student agency.
+
+\textbf{Step 1: Page-by-Page Analysis} \\
+For each page of the transcript:
+    \begin{itemize}[itemsep=0.1em]
+        \item Read each page of the transcript individually.
+        \item Make notes of student responses and notable teacher/AI turns for later reference.
+    \end{itemize}
+
+\textbf{Step 2: Representative Passages}
+Select at least \textbf{3--5 verbatim passages} for each of the following, ideally spread across the transcript:
+    \begin{itemize}[itemsep=0.1em]
+        \item \textit{Teacher/AI talk:} jokes, explanations, prompts, calculations, metacognitive comments
+        \item \textit{Student talk:} explanations, calculations, reflections, moments of confusion
+    \end{itemize}
+Each passage should be annotated to explain its context and why it is notable.
+
+\textbf{Step 3: Missed Opportunities}
+\begin{itemize}
+    \item For each transcript, identify \textbf{3--5 moments} where the teacher/AI could have prompted, scaffolded, or paused for student elaboration, recursion, or explanation---but did not.
+    \item Quote the actual teacher/AI turn, and describe what a more student-centered alternative might have been.
+\end{itemize}
+
+\textbf{Step 4: Evidence for Pirie--Kieren Layers}
+For each of the 8 Pirie--Kieren layers below, search for and quote passages that exemplify student engagement at that level:
+    \begin{multicols}{2}
+\begin{enumerate}[itemsep=0.1em]
+    \item \textbf{Primitive Doing}
+    \item \textbf{Image Making}
+    \item \textbf{Image Having}
+    \item \textbf{Property Noticing}
+    \item \textbf{Formalizing}
+    \item \textbf{Observing}
+    \item \textbf{Structuring}
+    \item \textbf{Inventing}
+\end{enumerate}
+\end{multicols}
+\vspace{-1em}
+Annotate each passage. If no evidence is found for a given layer, state so explicitly.
+
+Explicitly code for \textbf{recursive/folding back movement}---instances where the student revisits or reconstructs prior reasoning after new insight or challenge.
+
+\textbf{Step 5: Synthesis and Discussion}
+\begin{itemize}[itemsep=0.1em]
+    \item \textit{Executive Summary:} 1--2 paragraphs summarizing main findings, pattern of interaction, and evidence (or absence) of student-driven mathematical growth.
+    \item \textit{Table of Word Counts and Engagement:} Paste the table from Step 2.
+    \item \textit{Representative Passages:} List/annotate selected teacher and student examples.
+    \item \textit{Missed Opportunities:} Briefly discuss what was missed and the likely impact on learning.
+    \item \textit{Evidence for Pirie--Kieren Layers:} Present findings layer by layer, quoting and discussing where present, and noting absences.
+    \item \textit{Interpretation:} Discuss what the transcript shows about student agency, recursion, and mathematical understanding.
+    \item \textit{Design and Research Implications:} Offer at least 2--3 recommendations for future prompt/AI design or teaching practice based on your findings.
+\end{itemize}
+
+\textbf{Notes for Use}
+\begin{itemize}
+    \item Apply the same structure for every analysis, regardless of the richness or length of the transcript.
+    \item If the transcript is too brief, or if student talk is $<$10\%, document this and proceed with the analysis (absence is a finding).
+    \item Be explicit about the \textbf{limitations} of each sample.
+\end{itemize}
+
+\subsection*{II. Determining Anchor Cases}
+
+The PK--WAP protocol was applied to a contrastive sample of 30 anchor cases, selected to capture the full range of student engagement and interaction quality. Selection proceeded in two stages:
+
+\textbf{Quantitative Selection (20 cases):} Based on Phase I word count analysis (Appendix B), we selected:
+\begin{itemize}[itemsep=0.1em]
+    \item \textbf{Top 10:} Transcripts with the highest student talk percentages (range: 45--62\%)
+    \item \textbf{Bottom 10:} Transcripts with the lowest student talk percentages while maintaining sufficient material for analysis (range: 10--18\%)
+\end{itemize}
+Transcripts with negligible student contribution ($<$10\%) were excluded and replaced with the next-lowest cases to ensure sufficient material for Pirie-Kieren analysis.
+
+\textbf{Qualitative Selection (10 noteworthy cases):} From the remaining 84 middle-range transcripts (18--45\% student talk), we identified cases exhibiting distinctive features warranting deep analysis. To systematically review this subset, we developed a web-based Flask application (shown below) that displayed original student submissions alongside categorical tags. This tool enabled rapid, consistent annotation across the following categories:
+\begin{itemize}[itemsep=0.1em]
+    \item \textbf{GenAI Error:} AI misinterpretation or factual mistake with pedagogical consequence
+    \item \textbf{Creative Detour:} Student-initiated exploration beyond the assigned task
+    \item \textbf{Language Switch:} Code-switching or translation challenges affecting dialogue
+    \item \textbf{High Engagement:} Notable depth despite moderate word count
+    \item \textbf{Metacognitive Moves:} Explicit reflection on learning process or AI interaction
+    \item \textbf{Conceptual Breakthrough:} Clear evidence of PK layer advancement mid-dialogue
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\fboxsep=1pt\fboxrule=1pt\fbox{%
+\includegraphics[width=0.93\textwidth]{figures/transcript_reviewer.png}%
+}
+\label{fig:transcript-reviewer}
+\end{figure}
+
+The final 10 noteworthy cases were selected based on tag frequency, diversity of features, and potential to illuminate design implications. This two-stage selection strategy ensured the anchor sample included both quantitative extremes (high/low engagement) and qualitatively distinctive patterns not captured by word counts alone.
+
+\subsection*{III. Generating Analytic Memos with GenAI}
+\textbf{Purpose:} \\
+This subsection documents how the PK--WAP process was operationalized using generative AI (genAI) to produce structured analytic memos for each of the 30 anchor cases, ensuring consistency while allowing for nuanced coding.
+
+\textbf{Required Inputs:}
+\begin{itemize}[itemsep=0.1em]
+    \item Transcript in clean \texttt{.txt} format.
+    \item Reference materials: Pirie \& Kieren (1994) framework, Boaler (1998) examples, and at least one ``gold standard'' memo.
+    \item Project context with shared definitions and formatting conventions.
+\end{itemize}
+
+\textbf{Execution Steps:}
+\begin{enumerate}[itemsep=0.1em]
+    \item \textbf{Preparation:} Upload transcript, ensure all references are available, and have gold standard memos accessible.
+    \item \textbf{Prompting:} Instruct the model to read the entire transcript and produce, in order: word counts by page, folding-back moments, PK layer coding, representative quotes, missed opportunities, a memo summary, page-by-page coding table, and a layer progression map---matching the tone and formatting of the gold standard memo.
+    \item \textbf{Output:} Generate in Markdown format with exact section headings preserved.
+\end{enumerate}
+
+\textbf{Quality Check:}
+\begin{itemize}[itemsep=0.1em]
+    \item Verify alignment with Phase I word counts.
+    \item Confirm evidence for folding-back and layer ceilings is quote-supported.
+    \item Ensure progression maps match coding tables.
+\end{itemize}
+
+\begin{tcolorbox}[colback=gray!10, colframe=black!10, boxrule=0.5pt, arc=2pt, boxsep=5pt, left=4pt, right=4pt, top=6pt, bottom=6pt]
+\textbf{Scaling for Batch Processing:} \\
+The process can be applied manually or via the OpenAI API with scripted prompts. Batch outputs are stored as \texttt{.md} files and logged in a \texttt{.csv} with metadata. Manual review is recommended for a subset to ensure quality control.
+\end{tcolorbox}
+
+\textbf{Note on Context Retention:} Analyses performed within the same project environment (with prior PK--WAP examples and definitions) yield the most consistent results.
+
+\textbf{Replication Disclaimer:} While this protocol is designed for consistency, PK--WAP coding remains a qualitative process involving researcher judgment. Regular calibration meetings, shared review of anchor cases, and documented rationales are recommended.
+
+\newpage
+\subsection*{IV. Analytic Memo Template}
+
+Note: Instructions in parentheses are for the AI to follow and should never appear in the final memo.
+
+% --- Pre-requisites (put these in your preamble once) ---
+% \usepackage[most]{tcolorbox}
+% ------------------------------------------------------
+
+\begin{tcolorbox}[
+  enhanced,breakable,
+  colback=gray!10,colframe=gray!50,
+  boxrule=0.8pt,arc=2mm,
+  left=8pt,right=8pt,top=10pt,bottom=10pt
+]
+
+{\bfseries 1. Introduction / Context}
+
+(State the case ID, PK–WAP analysis, and short description of the mathematical scenario. Include explicit attribution rules: unlabeled student turns that answer AI prompts are treated as student turns.)
+
+\medskip
+{\bfseries 2. Word Counts / Percent Talk by Page}
+
+ALWAYS use this column order \texttt{Page | Student Words | AI Words | \% Student Talk}
+
+\begin{itemize}[noitemsep]
+  \item No extra columns unless explicitly requested.
+  \item Column names must be exactly as shown.
+  \item Percentages must be numeric (no \% symbol).
+  \item Provide a total \% at the end.
+\end{itemize}
+
+% Example placeholder table (single, correct tabular)
+\medskip
+\begingroup
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.1}
+\hspace{1em}\begin{tabular}{@{}r r r r@{}}
+\toprule
+\textbf{Page} & \textbf{Student Words} & \textbf{AI Words} & \textbf{\% Student Talk} \\
+\midrule
+1 & \#\#\# & \#\#\# & \#\#\# \\
+2 & \#\#\# & \#\#\# & \#\#\# \\
+3 & \#\#\# & \#\#\# & \#\#\# \\
+4 & \#\#\# & \#\#\# & \#\#\# \\
+n & \#\#\# & \#\#\# & \#\#\# \\
+\bottomrule
+\end{tabular}
+\endgroup
+
+\medskip
+\hspace{1em}\noindent\textbf{Overall student talk:} \#\#\# words (\#\#\#).
+
+\medskip
+{\bfseries 3. Layer Progression Map}
+
+(Use ASCII or a clear diagram to show PK layer sequence. Mark fold-backs with curved arrows and page refs. The style must be consistent across memos.)
+
+\medskip
+{\bfseries 4. Recursive / folding-back moments (narrative)}
+
+(Describe each major folding-back episode in paragraph form, with page refs, layer transitions, and how the student reconstructs understanding. Maintain consistent depth across memos.)
+
+\medskip
+\newpage
+{\bfseries 5. PK layer coding (evidence-rich)}
+
+(Table listing all 8 PK layers: Layer, Evidence from transcript, Notes on classification. Always include all 8 layers in order.)
+
+\medskip
+\begingroup
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.1}
+\hspace{1em}\begin{tabular}{@{}l c c@{}}
+\toprule
+\textbf{Layer} & \textbf{Representative Evidence} & \textbf{Notes} \\
+\midrule
+1. Primitive Doing & \ldots & \ldots \\
+2. Image-Making & \ldots & \ldots \\
+3. Image-Having & \ldots & \ldots \\
+4. Property-Noticing & \ldots & \ldots \\
+5. Formalizing & \ldots & \ldots \\
+6. Observing & \ldots & \ldots \\
+7. Structuring & \ldots & \ldots \\
+8. Inventising & \ldots & \ldots \\
+\bottomrule
+\end{tabular}
+\endgroup
+
+\medskip
+{\bfseries 6. Page-by-page PK–WAP coding}
+
+(Table for every page: Page, Dominant layer(s), Representative evidence, Notes. Must include all pages.)
+
+\medskip
+\begingroup
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.1}
+\hspace{1em}\begin{tabular}{@{}r c c c@{}}
+\toprule
+\textbf{Page} & \textbf{Dominant layer(s)} & \textbf{Representative Evidence} & \textbf{Notes} \\
+\midrule
+1 & \#\#\# & \ldots & \ldots \\
+2 & \#\#\# & \ldots & \ldots \\
+3 & \#\#\# & \ldots & \ldots \\
+4 & \#\#\# & \ldots & \ldots \\
+n & \#\#\# & \ldots & \ldots \\
+\bottomrule
+\end{tabular}
+\endgroup
+
+\medskip
+{\bfseries 7. Representative Quotes}
+
+(Subdivide into Student and AI. Include at least 4–6 quotes per side, with page numbers and conceptual significance. Format must remain consistent across memos.)
+
+\medskip
+{\bfseries 8. Missed opportunities (elaborated)}
+
+(List 3–5. Each must have 1–2 sentences explaining what was missed, where, and how it could have deepened learning.)
+
+\medskip
+{\bfseries 9. Summary of Findings}
+
+(1–2 paragraphs synthesizing engagement level, PK layer movement, tone, and key growth moments.)
+
+\medskip
+{\bfseries 10. Final Observations}
+
+(One paragraph tying together PK movement, agency, tone, and possible improvements.)
+
+\medskip
+{\bfseries 11. Conclusion}
+
+(Short paragraph summing up why the case matters, with specific PK trajectory notation and final pedagogical implications.)
+
+\end{tcolorbox}
+
+\newpage
+% Appendix E: Pirie–Kieren Work Analysis Protocol (PK-WAP)
+\section*{Appendix F: Analytic Memo Generation Protocol}
+\subsection*{Example Analytic Memo}
+
+Below is an excerpt from the PK--WAP analytic memo for case P28--G16--S5, illustrating the depth and structure of analysis applied to each anchor case. The full memo includes all sections outlined in the protocol; selected portions are presented here to demonstrate the coding process and interpretive approach.
+
+\begin{tcolorbox}[
+  enhanced,breakable,
+  colback=gray!10,colframe=gray!50,
+  boxrule=0.8pt,arc=2mm,
+  left=8pt,right=8pt,top=10pt,bottom=10pt
+]
+
+\noindent\textbf{Case ID: P28--G16--S5} \\
+\textbf{Method:} Pirie--Kieren Work Analysis Protocol (PK--WAP) \\
+\textbf{Focus:} Student--AI dialogue in which the student specifies a personality-based AI-teacher workflow, then collaborates on a Taylor-series modeling task (medical CT reconstruction). The transcript opens with a long, student-authored activity script (Pages 00--01), followed by AI-led scaffolding with intermittent, terse student replies. Analysis below treats the initial prompt text (student-authored instructions) as \textbf{student words} and the AI's subsequent facilitation as \textbf{AI words}. Single student turns that answer AI prompts are treated as student turns.
+
+\medskip
+\noindent\textbf{Word counts \& \% student talk by page (estimated)}
+
+\begingroup
+\setlength{\tabcolsep}{8pt}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}rrrr@{}}
+\toprule
+\textbf{Page} & \textbf{Student Words} & \textbf{AI Words} & \textbf{\% Student Talk} \\
+\midrule
+00 & 546 & 0 & 100.0 \\
+01 & 364 & 0 & 100.0 \\
+02 & 2 & 261 & 0.8 \\
+03 & 0 & 241 & 0.0 \\
+04 & 12 & 226 & 5.0 \\
+05 & 39 & 206 & 15.9 \\
+06 & 13 & 249 & 5.0 \\
+07 & 4 & 221 & 1.8 \\
+08 & 56 & 170 & 24.8 \\
+09 & 12 & 217 & 5.2 \\
+10 & 2 & 202 & 1.0 \\
+11 & 0 & 72 & 0.0 \\
+\midrule
+\textbf{Total} & \textbf{1,050} & \textbf{2,065} & \textbf{33.7} \\
+\bottomrule
+\end{tabular}
+\endgroup
+
+\medskip
+\noindent\textbf{Pattern:} Student-dominant \textbf{setup} (00--01); AI-dominant facilitation \textbf{after 02}, with brief but consequential student entries (e.g., domain choice, constraint identification, value trade-offs).
+
+\medskip
+\noindent\textbf{Recursive / folding-back moments (narrative)}
+
+\begin{itemize}[itemsep=0.3em]
+\item \textbf{FB-1 (Page 04): Protocol repair.} Student interrupts---``you did not ask me questions one by one in step 1.'' This is \emph{Observing} the interactional structure and folding back to enforce the designed constraints. The repair establishes turn granularity, improving conditions for subsequent PK movement.
+
+\item \textbf{FB-2 (Pages 06--07): From scenario to property.} After selecting \textbf{CT imaging} (Primitive Doing/Image-Making), the student compresses the core instability to ``\textbf{sensitivity to measurement errors}'' (Property-Noticing). This is a concise leap from context to governing mathematical property (ill-posedness).
+
+\item \textbf{FB-3 (Page 09): Cognitive load check $\to$ reframing.} Student signals overload (``too professional\ldots''). AI folds back to \textbf{Image-Making} via a sketch analogy, re-grounding abstractions. The move restores traction without supplying answers, preserving agency.
+
+\item \textbf{FB-4 (Page 10): Prioritization lens.} Student commits to ``\textbf{tumor's shape}'' as the diagnostic eyebrow (must-preserve). This selects a salient invariant (Property-Noticing $\to$ Image-Having), stabilizing future trade-offs (e.g., filter strength, polynomial ``degree'').
+
+\item \textbf{FB-5 (Pages 10--11): Task-contingent rules.} Dialogue generalizes toward \textbf{criteria that vary by purpose} (emergency vs. early detection), an \emph{Observing $\to$ Structuring} step: not formal proof, but proto-principles that justify differing approximation cutoffs.
+\end{itemize}
+
+\end{tcolorbox}
+
+
+\subsection*{Prompt for GenAI to Generate Analytic Memo}
+
+\begin{tcolorbox}[
+    enhanced,breakable,
+    colback=gray!10,colframe=gray!50,
+    boxrule=0.8pt,arc=2mm,
+    left=8pt,right=8pt,top=10pt,bottom=10pt,
+    fontupper=\ttfamily
+]
+I'm researching student–AI mathematical dialogue. Please analyze the attached transcript (P28-G16-S5.txt) using the Pirie–Kieren Work Analysis Protocol (PK-WAP) and generate a Deep Research–style memo that follows exactly the structure, headings, numbering, and formatting rules in the attached guiding document (P00-G00-S0 PK-WAP TEMPLATE.md).
+\newline \\ \noindent
+The template rules are non-negotiable:
+\begin{itemize}[noitemsep]
+\item
+Section order, headings, and numbering must match exactly.
+\item
+Word Count table must follow the template’s required column names and order: Page | Student Words | AI Words | % Student Talk
+\item
+Include all analytical components listed in the template at full depth.
+\item
+Analytical content must be specific to the transcript (no generic/template-sounding text).
+\end{itemize}
+Follow these steps:
+\begin{enumerate}[noitemsep]
+\item
+Estimate word counts and identify recursive/folding-back moments with narrative detail.
+\item
+Code for all 8 Pirie–Kieren layers (Primitive Doing → Inventising).
+\item
+Highlight representative quotes from both student and AI (4–6 per side).
+\item
+Assess missed opportunities for AI to support deeper learning (1–2 sentences per item).
+\item
+Provide a summary that synthesizes growth, agency, and tone.
+\end{enumerate}
+Please take your time—it's okay if this takes several minutes to complete. The goal is a pedagogically insightful, deeply interpretive analysis in the exact format of the template.
+\newline \\ \noindent
+Attachments:
+\begin{enumerate}[noitemsep]
+\item
+Transcript to analyze.
+\item
+Deep Research Template (P00-G00-S0 PK-WAP TEMPLATE.md).
+\item
+Two research articles:
+\begin{itemize}[noitemsep]
+\item
+Pirie–Kieren framework description (layer definitions).
+\item
+Boaler’s examples of levels from student work.
+\end{itemize}
+\end{enumerate}
+\end{tcolorbox}
+
+\medskip
+\noindent\textbf{Note on Implementation:} The above protocol was implemented in Python using the OpenAI API (\texttt{pkwap\_analyzer.py}). The script accepts individual transcripts or batch processing of multiple files, enforces template compliance, and logs all API interactions for reproducibility. Code and documentation are available in the project repository (see Section 5.6).

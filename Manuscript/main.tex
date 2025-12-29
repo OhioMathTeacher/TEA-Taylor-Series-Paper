@@ -1,0 +1,725 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+% --- Use XeLaTeX or LuaLaTeX ---
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{libertinus-otf}
+\usepackage{tgheros} % Helvetica-like
+\defaultfontfeatures{Ligatures=TeX, Scale=MatchLowercase}
+
+\setmonofont{JetBrains Mono}[Scale=MatchLowercase]    
+\newfontfamily\headingfont{Latin Modern Roman}
+
+\newfontfamily\TitleFont{LibertinusSerif-Semibold.otf}[LetterSpace=2] 
+% or Cormorant Garamond SemiBold
+%\newfontfamily\TitleFont{Source Sans 3 SemiBold} % or Gill Sans, IBM Plex Sans, etc.\setmonofont{JetBrains Mono}[Scale=MatchLowercase]
+
+% prevent orphaned headings
+\usepackage{needspace}
+\usepackage{etoolbox}
+
+% Use \Needspace (capital N) – safe in horiz/vert mode
+\pretocmd{\section}{\Needspace{6\baselineskip}}{}{}
+\pretocmd{\subsection}{\Needspace{5\baselineskip}}{}{}
+\pretocmd{\subsubsection}{\Needspace{4\baselineskip}}{}{}
+
+% Also cover the starred forms
+\expandafter\pretocmd\csname section*\endcsname{\Needspace{6\baselineskip}}{}{}
+\expandafter\pretocmd\csname subsection*\endcsname{\Needspace{5\baselineskip}}{}{}
+\expandafter\pretocmd\csname subsubsection*\endcsname{\Needspace{4\baselineskip}}{}{}
+
+% (Optional) discourage widows/orphans generally
+\clubpenalty=10000
+\widowpenalty=10000
+
+\newcommand{\affilfont}{\fontsize{11.5pt}{11.5pt}\selectfont}
+\usepackage{titling}
+\setlength{\droptitle}{-0.6em} 
+
+\pretitle{\begin{center}\Huge\TitleFont\color{PrimaryColor}}
+\posttitle{\par\end{center}\vspace{0.4em}}
+\title{AI-Enhanced Learning\\[0.2em]in Calculus Education}
+
+\preauthor{\begin{center}\large}% was something like \postauthor{... \vspace{0.22em}}
+\postauthor{\par\end{center}\vspace{-1em}}
+\predate{}\postdate{} % remove date space
+
+\usepackage{setspace}
+\usepackage{nameref}
+\usepackage{xcolor}
+\usepackage{changepage} % in preamble
+\definecolor{Top10}{RGB}{220,255,220}       % light green
+\definecolor{Bottom10}{RGB}{255,230,230}    % light red
+\definecolor{Noteworthy}{RGB}{230,240,255}  % light blue
+% Ring colors for Pirie-Kieren diagram
+\definecolor{ringA}{gray}{0.93}
+\definecolor{ringB}{gray}{0.86}
+\definecolor{ringC}{gray}{0.78}
+\definecolor{ringD}{gray}{0.70}
+\definecolor{ringE}{gray}{0.62}
+\definecolor{ringF}{gray}{0.54}
+\definecolor{ringG}{gray}{0.46}
+\definecolor{ringH}{gray}{0.38}
+\usepackage{soul}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{multicol}
+\usepackage{placeins}
+
+\usepackage{threeparttable}
+\usepackage{makecell}
+
+\usepackage{titlesec}
+% OJSM-style section headings (Step A)
+\definecolor{PrimaryColor}{HTML}{223D8F} % deep blue
+
+\titleformat{\section}
+  {\color{PrimaryColor}\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\color{black}\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+  {\color{black}\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+\titlespacing*{\section}{0pt}{0em}{-0.3em}
+\titlespacing*{\subsection}{0pt}{0em}{-0.4em}
+\titlespacing*{\subsubsection}{0pt}{0em}{-0.5em}
+\titlespacing*{\paragraph}{0pt}{0.5em}{0.5em}
+
+% Also set spacing for starred versions
+\titlespacing{\section}{0pt}{0em}{-0.3em}
+\titlespacing{\subsection}{0pt}{0em}{-0.4em}
+\titlespacing{\subsubsection}{0pt}{0em}{-0.5em}
+\titlespacing{\paragraph}{0pt}{0.5em}{0.5em}
+
+\setlist{itemsep=0.5em, topsep=0.2em, parsep=0.2em}
+
+% Tighten quote environment spacing
+\usepackage{etoolbox}
+\AtBeginEnvironment{quote}{\vspace{-0.5em}}
+\AtEndEnvironment{quote}{\vspace{-1em}}
+
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage{tabularx,booktabs}
+\renewcommand\tabularxcolumn[1]{m{#1}} % vertical 
+\usepackage{array}
+\usepackage{siunitx}
+\renewcommand{\arraystretch}{1.2} % More space for APA look
+\usepackage{longtable}
+\usepackage{subcaption}
+% only figures:
+\captionsetup[figure]{labelfont=bf}
+% only tables:
+\captionsetup[table]{labelfont=bf}
+
+% subfigures/subtables too:
+\captionsetup[subfigure]{labelfont=bf}
+\captionsetup[subtable]{labelfont=bf}
+
+% change the separator if you prefer a period or space
+\captionsetup{labelsep=period}   % "Figure 7."
+% \captionsetup{labelsep=space}  % "Figure 7"
+
+
+% if not already in your preamble:
+\usepackage{abstract}
+
+% Manually control the space after the abstract heading
+\renewenvironment{abstract}{
+  \vspace{2em}
+  \centerline{\large\bfseries Abstract} % <--- match author font size here
+  \begin{quote}
+  \vspace{-1.5em}
+}
+{
+  \end{quote}
+  \vspace{0.5em}
+}
+
+% Author 1
+\newcommand{\firstnameone}{Zheng}
+\newcommand{\lastnameone}{Yang}
+% Author 2
+\newcommand{\firstnametwo}{Tuto}
+\newcommand{\lastnametwo}{Lopez Gonzalez}
+% Author 3
+\newcommand{\firstnamethree}{Todd}
+\newcommand{\lastnamethree}{Edwards}
+
+% Full names (for title page)
+\newcommand{\authornameone}{\textbf{\firstnameone\ \lastnameone}}
+\newcommand{\authornametwo}{\textbf{\firstnametwo\ \lastnametwo}}
+\newcommand{\authornamethree}{\textbf{\firstnamethree\ \lastnamethree}}
+
+\newcommand{\authoraffiliationone}{Sichuan University}
+\newcommand{\authoraffiliationtwo}{Technology Educator Alliance}
+\newcommand{\authoraffiliationthree}{Miami University}
+
+\usepackage{tikz}
+
+
+\begin{document}
+\setlength{\parindent}{0pt} % No paragraph indentation
+\setlength{\parskip}{1em}   % Add vertical space between paragraphs
+\title{AI-Enhanced Learning in Calculus Education\thanks{Analysis scripts, protocols, and reproducibility documentation are publicly available at \url{https://github.com/OhioMathTeacher/TEA-AI-Calculus-Code}. GenAI tools (OpenAI GPT-5.1 and Anthropic Claude Sonnet 4.5, accessed via VS Code with GitHub Copilot) made substantial contributions to this research through automated transcript analysis, coding workflows, and qualitative data processing. Their methodological role is detailed in Section~\ref{sec:method}.}}
+\author{%
+  \authornameone \\ {\affilfont \authoraffiliationone} \vspace{.5em} \\
+  \authornametwo \\ {\affilfont \authoraffiliationtwo} \vspace{.5em} \\
+  \authornamethree \\ {\affilfont \authoraffiliationthree}
+}
+
+\date{}
+\vspace{-1em}
+\maketitle
+
+\begin{abstract}
+\vspace{0.5em}
+This study examines the role of generative AI (genAI) as a learning partner in second-semester calculus, focusing on Taylor series. Students engaged with a researcher-designed genAI module featuring adaptive tutoring, real-time visualizations, and historical narratives. We analyzed 127 student–genAI transcripts using the Pirie–Kieren framework, along with survey and teaching assistant interview data. Across transcripts, genAI contributed about 55\% of words, yet transcript analysis revealed evidence of substantial mathematical reasoning, often reaching advanced Pirie–Kieren levels and engaging in recursive “fold back” cycles. Survey and interview findings indicated increased confidence, positive attitudes toward AI support, and appreciation for personalized feedback, though some students reported frustration when AI withheld direct answers or over-prompted. Overall, the study highlights both the promise and the limits of AI-mediated learning: genAI scaffolding supported deep conceptual engagement, but sustaining student agency remains a challenge. Methodologically, this paper also serves as an exploration of how genAI tools (specifically VS Code with GitHub Copilot) can support qualitative research workflows, including transcript analysis, coding automation, and reproducible data processing pipelines. \end{abstract}
+\section{Introduction}
+In the following paper, we seek to determine how work with AI may impact students' understanding and attitudes towards calculus. For this study, we designed a genAI-mediated learning module for second semester calculus students to explore Taylor series. 
+
+Calculus is a foundational subject, yet its abstract nature and conceptual complexity often lead students to rely on rote procedures rather than developing deep structural understanding of underlying concepts like limits or infinite processes (Tall \& Vinner, 1981; Sfard, 1991; Thompson, 1994). Traditional instructional methods often struggle to engage learners or demonstrate calculus relevance. Studies by Boaler (1998) and Schoenfeld (2004) highlight that procedure-focused teaching often fails to promote student engagement or transfer of understanding to meaningful contexts. 
+
+Recent advances in genAI offer new possibilities for rethinking calculus instruction. Tools like ChatGPT and Deepseek provide personalized, adaptive learning experiences that simulate one-on-one tutoring and adapt to students' cognitive and emotional needs (Holmes \& Bialik, 2023; Zhai et al., 2023).
+
+Building on prior proof-of-concept work demonstrating that AI agents can successfully engage calculus students in inquiry-based explorations within historical contexts (Edwards et al., 2024), we designed a Taylor series module delivered through a genAI interface, positioning the AI as an interactive tutor offering historical narratives, visualizations, and guided problem-solving to encourage iterative reflection.
+
+Guided by \textbf{the central research question---``How does working with genAI as a learning partner shape the recursive development of students' understanding of calculus?''}---this study employs a mixed-methods approach to evaluate the impact of the Taylor series module on student understanding, engagement, and appreciation of calculus in both historical and contemporary contexts. The Pirie--Kieren theory of mathematical understanding serves a dual role in this study: it informed the design of prompts that encourage recursive reasoning during the learning activity, and it provided the theoretical foundation for the Pirie--Kieren Work Analysis Protocol (PK-WAP), which operationalizes recursive understanding as an observable, codable phenomenon in transcript analysis. 
+
+By analyzing qualitative reflections alongside transcripts of interactions with genAI, we aim to provide practical insights and strategies for educators. Notably, this analysis itself was conducted in collaboration with genAI tools (VS Code with GitHub Copilot), which assisted in automating transcript processing, coding workflows, and ensuring reproducible data analysis pipelines. This dual role of genAI---as both the object of study and a methodological partner in qualitative research---offers insights into how AI can support large-scale analysis of thick data (Geertz, 1973; Wang, 2013) while maintaining rigor and transparency. Our goal is to make learning---whether about calculus and Taylor series or qualitative analysis and inquiry---more accessible, engaging, and meaningful with genAI. We discuss our research methodology in more detail in Section~\ref{sec:method}, \nameref{sec:method}.
+
+\newpage
+\section{Literature Review}
+\subsection{AI in Mathematics Education}
+Recent research in artificial intelligence in education (AIED) highlights the evolving role of adaptive systems in mathematics instruction. Intelligent tutoring systems (ITS), dialogue-based tutoring systems, and experiential learning environments have been shown to provide students with personalized, adaptive, and interactive support. These tools track student progress, adjust instructional pathways in real time, and offer targeted feedback to promote mastery and conceptual understanding (Holmes \& Bialik, 2023). Moreover, AIED systems increasingly include affective supports such as sentiment analysis and real-time interventions to identify struggling learners and respond to their emotional and cognitive needs. While LLMs like Deepseek and ChatGPT are newer to the field, their capacity for Socratic-style dialogue and dynamic problem posing aligns with ongoing efforts to create learning environments that are responsive, inclusive, and conceptually rich (Zhai, Chu, \& Wang, 2023).
+
+\subsection{Historical and Interdisciplinary Approaches to Calculus}
+In parallel with technological innovations, educational researchers have explored ways to humanize mathematics learning through historical and interdisciplinary approaches. Contextualizing abstract concepts like convergence and approximation within meaningful narratives not only fosters deeper engagement but also helps students build connections between theory and practice. This growing body of literature suggests that integrating historical perspectives and real-world relevance can enhance students’ motivation, creativity, and capacity for conceptual transfer—particularly in traditionally abstract domains like calculus (Boaler, 1998; Fried, 2001; Jahnke, 2000).
+
+\subsection{Recursive Learning through the Pirie-Kieren Framework}
+Pirie and Kieren (1989) offer a robust framework for examining the development of mathematical understanding as a dynamic, recursive process. Originating from constructivist traditions, Pirie and Kieren propose that mathematical comprehension evolves through iterative cycles, allowing learners to revisit earlier stages to deepen their understanding (Rexhepi and Makasevska, 2024). This recursive characteristic, termed "folding back," is essential for learning, as it facilitates a more profound conceptual grasp when learners encounter difficulties or novel problems.
+
+Recent research applying the Pirie-Kieren model highlights its effectiveness across diverse mathematical topics and education levels. For example, Rexhepi and Makasevska's (2024) experimental study on fraction comprehension among third-grade students found significant improvements in mathematical understanding when instruction explicitly incorporated Pirie-Kieren principles. Their intervention addressed critical didactic shortcomings, such as the lack of structured progression through conceptual levels, insufficient visual supports for abstract ideas, and limited opportunities for students to revisit and deepen earlier understandings, emphasizing structured progression and appropriate visual representations. Students in the experimental group demonstrated significantly higher performance, as measured by post-intervention assessments evaluating students’ ability to reason about mathematics, apply properties, and solve novel problems aligned with the conceptual levels outlined in the Pirie-Kieren model. Their results suggest that Pirie-Kieren-informed teaching methodologies could effectively replace or supplement traditional instructional approaches.
+
+\begin{figure}[!h]
+\centering
+\caption{The eight recursively embedded layers of the Pirie--Kieren theory of mathematical understanding, from \emph{Primitive Knowing} (innermost) to \emph{Inventising} (outermost).}
+\begin{minipage}[c]{0.62\linewidth}
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/fig1.png}
+\end{minipage}%
+\hfill
+\begin{minipage}[c]{0.34\linewidth}
+  \raggedright
+  \textbf{Pirie--Kieren Layers}
+  \vspace{0.3em}
+  \begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+    \foreach \i/\txt/\col [count=\r from 0] in {
+      {1}/{Primitive Knowing}/ringA,
+      {2}/{Image Making}/ringB,
+      {3}/{Image Having}/ringC,
+      {4}/{Property Noticing}/ringD,
+      {5}/{Formalising}/ringE,
+      {6}/{Observing}/ringF,
+      {7}/{Structuring}/ringG,
+      {8}/{Inventising}/ringH}{
+      \draw[fill=\col, draw=black!35] (0,-0.70-\r*0.45) rectangle +(0.32,0.32);
+      \node[anchor=west] at (0.38,-0.70-\r*0.45) {\i.\ \txt};
+    }
+  \end{tikzpicture}
+\end{minipage}
+
+
+\label{fig:pk_layers_raster}
+\vspace{1.1em}
+ \begin{minipage}[t]{\linewidth}
+    \raggedright
+{\footnotesize \textit{Note.} Each successive layer contains all inner layers; \emph{folding back} describes recursive movement to strengthen earlier understandings.}
+\end{minipage}
+\end{figure}
+\FloatBarrier
+The integration of embodied cognition within mathematical learning processes aligns well with the Pirie-Kieren theory. Abdu et al. (2025) demonstrated how multimodal interactions, specifically eye-hand coordination, contribute to understanding proportionality. Their study indicated that learning mathematics is not a straight path but more like finding balance. As Abdu et al. (2025) describe it: \begin{quote}Learning to understand a new concept in mathematics is much like learning to ride a bike. There is an initial period of imbalance, uncertainty, and frequent correction, but with guided practice and repeated engagement, the learner begins to stabilize, coordinate their efforts, and ride with confidence.\end{quote} Abdu et al. note that students may feel unsure or make mistakes, but over time, with repeated effort and interaction, they begin to develop more stable, organized ways of thinking. This process of moving from confusion to clarity reflects how mathematical understanding builds through cycles of experimentation, adjustment, and growing confidence. 
+
+\subsubsection*{Generative AI and Recursive Conceptual Development}
+Furthermore, the Pirie-Kieren model holds considerable promise when applied to advanced mathematical thinking, including topics in calculus. Its recursive structure---one where students revisit earlier understandings to build deeper, more abstract insights---aligns especially well with the complexities of concepts like convergence and divergence, which require multiple layers of reasoning and representation. The theory's recursive nature complements the learning of convergence and divergence of series since deep understanding requires iterative examination through different tests (e.g., comparison, ratio, root, and integral tests). Students revisit earlier levels of understanding with greater insight. This iterative approach is well-suited for genAI tools since they have the capacity to dynamically adjust problem difficulty, provide immediate feedback, and suggest new exploratory pathways for students.
+
+The Pirie-Kieren framework also underscores the importance of constructing visual and mental imagery in mathematical understanding (Rexhepi and Makasevska, 2024). In the Pirie-Kieren model, "image-making" refers to the process by which learners form mental representations of mathematical ideas through active engagement—such as sketching graphs, manipulating symbols, or observing patterns. "Image-having," by contrast, occurs when those representations become stable enough that learners can recall and reason with them independently, without needing physical aids. LLMs support both image-making and image-having. Tools such as Deepseek or ChatGPT dynamically generate visualizations and tailored examples that help students build and solidify mental models. This support is especially helpful in calculus, where common misconceptions such as misunderstanding convergence criteria or misapplying convergence tests can be addressed through targeted image-building and reinforcement.
+
+\subsubsection*{Levels of Understanding in the Pirie-Kieren Framework} Mathematical understanding is non-linear, recursive, and layered. Each level of understanding includes and builds upon earlier levels, allowing learners to revisit and recontextualize prior ideas with greater sophistication. Pirie and Kieren (1989) define a nested framework with eight interrelated layers, listed below.
+\begin{enumerate}[itemsep=0.1em]
+\item\textbf{Primitive Doing}: Initial interactions with physical objects, figures, graphics, or symbols. For calculus students, this could be graphing series or manipulating terms to see patterns.
+{\item\textbf{Image Making}: Creating mental images based on these initial actions. Students start visualizing terms, series patterns, and partial sums.}
+\item\textbf{Image Having}: Internalizing and generalizing these images to understand series without the immediate need for physical or symbolic manipulations.
+\item\textbf{Property Noticing}: Observing and identifying properties of series, such as convergence patterns, monotonicity, boundedness, or the behavior of partial sums.
+\item\textbf{Formalizing}: Abstracting and explicitly defining concepts. For instance, formally defining convergence, divergence, absolute convergence, or conditional convergence.
+\item\textbf{Observing}: Understanding series definitions and properties within a broader mathematical framework. Students recognize series in the context of calculus and analysis, identifying connections between tests of convergence (e.g., comparison test, ratio test).
+\item\textbf{Structuring}: Situating their knowledge logically, creating and understanding proofs about series convergence or divergence. Students become capable of validating why particular tests work and under what conditions.
+\item\textbf{Inventising}: Extending, adapting, or creating new structures or ideas about series. Students generate conjectures, explore deeper patterns, or apply concepts in innovative contexts.
+\end{enumerate}
+
+Crucially, understanding does not simply move linearly through these levels. Instead, students "fold back" to earlier levels, revisiting prior stages with a refined perspective. Understanding is measured by effective action, which implies learners can perform tasks, explain concepts, and solve new problems effectively at each recursive level. These layers help educators recognize different forms mathematical understanding can take and how learners move fluidly among them. 
+
+\subsubsection*{Applications of AI Across the Pirie-Kieren Levels}
+\noindent\textit{How AI Tools Support Each Level of the Pirie-Kieren Model.}
+GenAI can be aligned with each stage of the Pirie-Kieren framework. Tools such as Deepseek and ChatGPT can support teaching and learning of convergence and divergence concepts in calculus in the following ways: 
+\begin{enumerate}[itemsep=0.1em]
+\item\textbf{GenAI for Image Making and Having}: GenAI tools illustrate complex series through visualization prompts or dynamic content generation. GenAI also generate examples of sequences and series, encouraging students to create mental models.
+
+\item\textbf{Property Noticing through Problem Posing}: GenAI present curated examples and guide students toward noticing patterns and properties, such as monotonicity or boundedness, critical in identifying convergence.
+
+\item\textbf{Formalization through GenAI-supported Definitions and Explanations}: GenAI can support students in constructing precise definitions and formal mathematical statements. Students can iterate definitions or clarify concepts through interactive dialogues.
+
+\item\textbf{Observing and Structuring through GenAI-driven Discussions}: GenAI-assisted problem-solving sessions or dialogues encourage students to contextualize series. Students ask questions like "Why does the Ratio Test work?" and receive explanations that help situate understanding in broader mathematical frameworks.
+
+\item\textbf{Inventising and Recursive Inquiry}: GenAI prompt students to generate novel problems or explore edge cases, stimulating deeper recursive thinking. Students can explore hypothetical series or test conjectures interactively, enhancing their ability to think inventively.
+
+\item\textbf{Folding Back Enhanced by GenAI}: GenAI assist students in explicitly revisiting earlier stages, pinpointing misconceptions, or clarifying confusion. By responding adaptively, AI helps students effectively move between different levels of understanding.
+\end{enumerate}
+While our theoretical framing is based on Pirie and Kieren's original 1989 model, our analytic coding and interpretive approach also draws on their subsequent elaboration, which provides detailed classroom examples and operationalizes recursive mathematical understanding. A main contribution of this work is that, we frame our investigation using Pirie and Kieren's (1989) recursive model of understanding, to analyze not just whether students learn, but how their mathematical understanding evolves through AI-guided interactions.
+\noindent
+\input{methods.tex} %import methods from file
+
+\section{Data Analysis}
+
+\subsection{Overview and Analytic Framework}
+
+The data analysis aimed to illuminate how students engaged with a genAI learning partner when exploring Taylor series, focusing on both the depth and nature of their mathematical understanding. First, we report aggregate findings from the coded student-genAI transcripts, using the Pirie--Kieren recursive framework as a lens. Building on these patterns, we then examine selected case studies to explore individual learning trajectories in greater detail. Where possible, we supplement our interpretation with survey responses and teaching assistant interview reflections to provide further context on students' experiences and attitudes. Our full coding protocol, including prompt text, appears in Appendices E and F. Note that the analysis combined quantitative metrics (e.g., word counts, student talk percentage, number of Pirie--Kieren levels evidenced) with qualitative coding (evidence of recursion, representative passages, missed opportunities, and agentic engagement). The analytic approach was explicitly designed to capture both the breadth and the nuance of student learning experiences.
+
+
+\subsection{Aggregate Findings from Transcript Analysis}
+
+Complete word-count and talk-percentage data for all 127 transcripts, organized by course section, appear in Appendix C. Across these transcripts, the dialogue was relatively balanced overall, with genAI producing approximately 55\% and students contributing approximately 45\% of the total words exchanged. However, as Figure~\ref{fig:student-talk-dist} shows, substantial variation existed across individual cases, with student talk percentages ranging from near-zero to 100\%, and medians varying by section (Section 3: 65\%; Section 4: 41\%; Section 5: 52\%; Section 6: 48\%). While the aggregate balance is more equitable than the AI-dominated patterns reported in some tutoring systems (Holmes et al., 2023; Zhai et al., 2023; Torrance et al., 2023), the wide variation suggests that individual student engagement and the AI's adaptive responsiveness both play crucial roles in shaping the dialogic exchange.
+
+\begin{figure}[ht]
+ \caption{Box plots of student-talk percentages by course section.}
+  \centering
+  \includegraphics[width=0.85\textwidth]{figures/fig3.png}
+  \label{fig:student-talk-dist}
+\end{figure}
+\FloatBarrier
+\vspace{-2em}
+
+\subsection{Case Studies: Deep Dives}
+To address our research questions, we turn to in-depth analyses of selected transcripts. The thirty analytic memos summarized here---chosen to represent a range of engagement patterns and learning trajectories---offer a window into the mechanisms of genAI-supported mathematical understanding. Each memo includes quantitative metrics, commentary on student movement through the Pirie--Kieren layers, and brief notes on agentic moves, recursion, and notable features. The summaries in Tables 2a-c provide a comparative snapshot of thirty anchor cases.
+
+These cases were chosen to illustrate the diversity of student approaches, agentic moves, and mathematical sophistication achieved during AI-mediated sessions. Across the 30 anchor cases, student talk percentages ranged from 13.3\% to 100.0\%, reflecting a broad spectrum of participation patterns. Regardless of talk share, all cases showed evidence of significant mathematical reasoning, with students reaching at least the Formalizing'' or Observing'' layers, and several attaining ``Structuring'' (the penultimate PK level). The number of observed recursive movements ranged from two to three per transcript, suggesting that the genAI partner frequently prompted cycles of reflection, error-checking, and conceptual reorganization.
+
+The ``Notable Feature(s)'' column highlights key agentic moments—instances where students made creative leaps, adapted their approach, or critically reflected on the limits of formal models.
+In many cases, these agentic moves were directly scaffolded by the AI’s prompts or feedback, but students also demonstrated independent initiative, particularly in developing new solution strategies or meta-cognitive insights. The diversity of student responses underscores both the opportunities and challenges inherent in dialogic, genAI-mediated learning. Together, these thirty anchor cases offer a cross-section of the most mathematically sophisticated and agentically rich exchanges observed in our study.
+\newgeometry{top=0.8in,bottom=0.8in}
+\begin{table}[htbp]
+\centering
+\caption{Anchor Cases for PK-WAP Analysis (Tables 2a–2c).}
+\label{tab:2}
+\renewcommand{\arraystretch}{1.1}
+\small
+
+% ---------- Table 3a ----------
+\begin{subtable}{\linewidth}
+\centering
+\begin{threeparttable}
+\caption{Anchor Cases with Lowest Student Talk Percentages (Bottom 10).}
+\label{tab:2a}
+\renewcommand{\arraystretch}{1.1}
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabularx}{\linewidth}{
+  l
+  >{\centering\arraybackslash}p{1.4cm}
+  >{\centering\arraybackslash}p{1.6cm}
+  >{\centering\arraybackslash}p{1.6cm}
+  >{\centering\arraybackslash}p{1.1cm}
+  >{\centering\arraybackslash}p{1.6cm}
+  >{\raggedright\arraybackslash}X
+}
+\toprule
+\textbf{ID} & \textbf{AI Words} & \textbf{Student Words} & \textbf{Total Words} & \textbf{\% AI} & \textbf{\% Student} & \textbf{Notes} \\
+\midrule
+P02-G4-S4   &  783 &  102 &  885 & 88.5 & 11.5 & Minimal engagement \\
+P23-G10-S5  &  950 &  133 & 1083 & 87.7 & 12.3 & AI-dominated dialogue \\
+P13-G4-S5   & 1163 &  169 & 1332 & 87.3 & 12.7 & Brief responses \\
+P09-GX-S5   & 2383 &  401 & 2784 & 86.0 & 14.0 & Short turns \\
+P01-G8-S4   &  671 &  112 &  783 & 85.7 & 14.3 & Very brief \\
+P28-G16-S5  &  944 &  160 & 1104 & 85.5 & 14.5 & Follows AI closely \\
+P115-G11-S4 & 1507 &  259 & 1766 & 85.3 & 14.7 & Low talk share \\
+P40-G12-S5  &  713 &  130 &  843 & 84.5 & 15.5 & Confirmatory \\
+P11-G10-S4  & 1199 &  224 & 1423 & 84.3 & 15.7 & Direct answers \\
+P12-GX-S6   &  763 &  147 &  910 & 83.8 & 16.2 & Restates AI ideas \\
+\bottomrule
+\end{tabularx}
+\end{threeparttable}
+\end{subtable}
+
+\vspace{0.8em}
+
+% ---------- Table 3b ----------
+\begin{subtable}{\linewidth}
+\centering
+\begin{threeparttable}
+\caption{Anchor Cases with Highest Student Talk Percentages (Top 10).}
+\label{tab:2b}
+\renewcommand{\arraystretch}{1.1}
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabularx}{\linewidth}{
+  l
+  >{\centering\arraybackslash}p{1.4cm}
+  >{\centering\arraybackslash}p{1.6cm}
+  >{\centering\arraybackslash}p{1.6cm}
+  >{\centering\arraybackslash}p{1.1cm}
+  >{\centering\arraybackslash}p{1.6cm}
+  >{\raggedright\arraybackslash}X
+}
+\toprule
+\textbf{ID} & \textbf{AI Words} & \textbf{Student Words} & \textbf{Total Words} & \textbf{\% AI} & \textbf{\% Student} & \textbf{Notes} \\
+\midrule
+P76-GX-S6   &  761 & 3228 & 3989 & 19.1 & 80.9 & Technical depth \\
+P82-G13-S6  & 1007 & 1518 & 2525 & 39.9 & 60.1 & Student-driven \\
+P105-G10-S5 & 1519 & 1042 & 2561 & 40.7 & 59.3 & Dense reasoning \\
+P109-G14-S4 & 1095 &  796 & 1891 & 42.1 & 57.9 & Extended thinking \\
+P106-GX-S6  & 1166 & 1440 & 2606 & 44.8 & 55.2 & High volume \\
+P55-G13-S4  &  412 &  441 &  853 & 48.3 & 51.7 & Balanced exchange \\
+P79-G8-S5   & 1809 & 1926 & 3735 & 48.4 & 51.6 & Rich dialogue \\
+P100-G12-S4 & 1372 & 1275 & 2647 & 51.8 & 48.2 & Versatile engagement \\
+P18-G4-S4   &  824 &  749 & 1573 & 52.4 & 47.6 & Conceptual moves \\
+P21-G5-S5   &  858 &  778 & 1636 & 52.4 & 47.6 & Clear reasoning \\
+\bottomrule
+\end{tabularx}
+\end{threeparttable}
+\end{subtable}
+
+\clearpage
+
+% ---------- Table 2c ----------
+\begin{subtable}{\linewidth}
+\centering
+\begin{threeparttable}
+\vspace{0.8em}
+\caption{Noteworthy Anchor Cases with Mid-Range Student Talk Percentages.}
+\label{tab:2c}
+\renewcommand{\arraystretch}{1.1}
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabularx}{\linewidth}{
+  l
+  >{\centering\arraybackslash}p{1.4cm}
+  >{\centering\arraybackslash}p{1.6cm}
+  >{\centering\arraybackslash}p{1.6cm}
+  >{\centering\arraybackslash}p{1.1cm}
+    >{\centering\arraybackslash}p{1.6cm}
+  >{\raggedright\arraybackslash}X
+}
+\toprule
+\textbf{ID} & \textbf{AI Words} & \textbf{Student Words} & \textbf{Total Words} & \textbf{\% AI} & \textbf{\% Student} & \textbf{Notes} \\
+\midrule
+P78-G14-S4  & 1256 &  821 & 2077 & 60.5 & 39.5 & Balanced engagement \\
+P72-G12-S4  & 1655 &  915 & 2570 & 64.4 & 35.6 & Conceptual dialogue \\
+P123-GX-S6  & 1326 &  673 & 1999 & 66.3 & 33.7 & Sustained inquiry \\
+P90-GX-S6   & 1672 &  781 & 2453 & 68.2 & 31.8 & Strategic thinking \\
+P54-GX-S6   & 1283 &  540 & 1823 & 70.4 & 29.6 & Focused reasoning \\
+P101-G4-S5  & 1395 &  529 & 1924 & 72.6 & 27.4 & Persistent exploration \\
+P38-G17-S5  & 1545 &  539 & 2084 & 74.1 & 25.9 & AI scaffolding \\
+P102-G3-S5  & 1103 &  337 & 1440 & 76.6 & 23.4 & Precise guidance \\
+P05-G9-S4   & 1504 &  378 & 1882 & 79.9 & 20.1 & AI-led engagement \\
+P61-G6-S4   & 1230 &  251 & 1481 & 83.1 & 16.9 & Confirmatory moves \\
+\bottomrule
+\end{tabularx}
+\end{threeparttable}
+\end{subtable}
+
+\normalsize
+\end{table}
+\restoregeometry
+
+\subsection{Interpretive Highlights}
+
+Analysis of the thirty anchor cases using the Pirie--Kieren Work Analysis Protocol (PK-WAP) revealed substantial depth of mathematical engagement across all student participation levels. Of the thirty complete analyses, 77\% (23/30) reached \textbf{Inventising}---the highest level of the Pirie--Kieren model, characterized by creating new mathematical concepts or adapting existing frameworks to novel contexts. \emph{It is important to note that reaching Inventising reflects coded transcript evidence of sophisticated reasoning within the dialogue, not a claim about durable cognitive achievement or transfer beyond the activity.} This finding held consistently across engagement categories: 80\% of low-talk cases (bottom 10), 70\% of high-talk cases (top 10), and 80\% of noteworthy mid-range cases reached this sophisticated level. Equally notable, 77\% of cases (23/30) exhibited clear \textbf{folding-back} patterns, with students recursively returning from advanced conceptual layers to earlier understanding and rebuilding with greater precision.
+
+Five major themes emerged from the deep analysis:
+
+\subsubsection*{Theme 1: Recursive Learning as Normative Practice}
+Folding-back was not an exception but the norm. Students routinely moved from Formalising or Observing back to Image-Making or Property-Noticing when encountering computational challenges, approximation errors, or limitations in their initial models. For instance, in case P23-G10-S5, the student revisited fluid dynamics concepts when realizing that direct computation of exponential decay was computationally prohibitive in real-time applications, then reconstructed understanding before advancing to formal polynomial approximation. This recursive pattern appeared regardless of overall student talk percentage, suggesting that genAI scaffolding successfully prompted reflection and conceptual reorganization even in AI-dominant dialogues.
+
+\subsubsection*{Theme 2: Inventising Through Real-World Contextualization}
+The majority of students reaching Inventising did so by adapting Taylor series methods to authentic engineering and scientific contexts---satellite orbit prediction, wind turbine blade design, Mars mission trajectory planning. Transcripts show evidence of students moving beyond formula application: they recognized when standard approaches failed, proposed modifications (e.g., piecewise approximations, higher-order terms), and evaluated trade-offs between accuracy and computational efficiency. Case P62-G7-S5 exemplifies this: after struggling with nonlinear orbital dynamics, the student independently suggested breaking the problem into intervals where different polynomial orders would optimize prediction accuracy.
+
+\subsubsection*{Theme 3: Self-Monitoring and Error Recognition}
+Across engagement levels, students demonstrated metacognitive awareness by identifying their own errors, questioning approximation validity, and seeking verification. In low-talk transcripts, this often manifested as terse queries (``Why doesn't this match?''), while high-talk cases showed extended reflection (``My linear approximation fails after 100 km altitude---should I use quadratic?''). The genAI's Socratic prompting consistently encouraged this self-monitoring, with explicit error-checking exchanges appearing throughout the analyzed transcripts.
+
+\subsubsection*{Theme 4: Differential Engagement Patterns, Equivalent Depth}
+While student talk percentages varied dramatically (13.3\% to 100\%), coded evidence of sophisticated reasoning (reaching Inventising) remained surprisingly consistent across engagement levels. Low-talk students reached Inventising through efficient, targeted responses rather than extended discourse, suggesting that quantity of student talk may not directly correlate with depth of in-dialogue mathematical reasoning. However, high-talk transcripts showed more frequent folding-back (average 2.3 vs. 1.6 recursive moments), indicating that extended dialogue may afford richer opportunities for observable conceptual reorganization.
+
+\subsubsection*{Theme 5: Agentic Moves Within AI Scaffolding}
+Students exhibited agency even when the AI dominated talk time. Common agentic behaviors included: proposing alternative solution strategies, asking clarifying questions that redirected the dialogue, and critically evaluating AI-generated explanations. Notably, students in noteworthy mid-range cases (20--60\% student talk) showed the most varied agentic patterns---sometimes accepting AI guidance, sometimes challenging it, sometimes synthesizing AI suggestions with independent insights.
+
+\subsubsection*{Representative Case Vignettes}
+
+To illustrate these themes, we present three vignettes representing high-talk, low-talk, and mid-range engagement patterns.
+
+\paragraph{High-Talk Case: P76-GX-S6 (80.9\% student talk)}
+This student engaged in extended mathematical dialogue while designing a deep-sea breathing alert system using Taylor series. Facing the ``ghost term problem'' when initial expansion at $x=0$ produced vanishing terms, the student independently proposed shifting the series to $x=2$, demonstrating Property-Noticing transitioning to Formalising. 
+
+\begin{quote}
+\small\itshape
+\textbf{Student:} ``Let's first tackle the 'ghost term problem'. When the function and its derivatives are zero at $x = 0$, the first few terms of the Taylor expansion will all be zero. Looking at the graph of $\sin(\pi x)$ near the origin, we know that although the function value and its first few derivatives are zero at $x = 0$, we can't just rely on the first few terms. We need to calculate more terms of the Taylor series. [...] For the 'depth dilemma', when the diver is at $x = 2$ instead of $x = 0$, the Taylor expansion centered at $x = 0$ may not be very accurate. This is where the idea of a translated Taylor series comes in handy. We should expand the function $f(x)$ around $x = 2$ instead of $x = 0$. Let $y=x - 2$, so $x=y + 2$. Then we find the Taylor series of $f(y + 2)$ with respect to $y$. By doing this, we can get a better approximation for the function value at $x=2$. [...] What do you think about my solutions?''
+
+\textbf{AI:} ``Brilliant! You've just cracked three centuries-old puzzles---let's verify these ingenious ideas like 18th-century mathematicians with quill pens...''
+\end{quote}
+
+The student exhibited strong agency, explicitly asking ``What do you think of my solutions?'' Multiple folding-back moments occurred as the student revisited error estimation approaches, ultimately reaching Inventising by proposing computational solutions balancing accuracy with real-time constraints. The AI provided supportive historical context while allowing student-driven problem-solving.
+
+\paragraph{Low-Talk Case: P13-G4-S5 (12.7\% student talk)}
+Despite minimal verbal output (150 words total), this student reached Inventising through efficient, precise exchanges focused on satellite position prediction with non-linear drag forces. When initially proposing $F=kv$ (linear drag), the AI's direct correction (``Your proposal is linear drag, not non-linear'') prompted immediate folding-back to Image-Making, where the student reconstructed understanding and refined the function to $F_d(v,h)=\frac{C_d A \rho(h)v^2}{2}$. 
+
+\begin{quote}
+\small\itshape
+\textbf{Student:} ``Ignoring $h$ violates the original problem's constraints (altitude-dependent drag). However, if we strictly isolate $v$: [...]''
+
+\textbf{AI:} ``Correct. Now, derive the 2nd-order Taylor polynomial $T_2(t)$ for $v(t) = \frac{v_0}{1+v_0 a t}$ centered at $t = 0$. [...] Step 2: Construct $T_2(t)$: $T_2(t) = v_0 - v_0^2 a t + v_0^3 a^2 t^2$. Step 3: Why is this practical? No division: Only multiplications/additions, which are hardware-friendly. Explicit error control: The error term $R_2(t)$ decays rapidly for small $t$.''
+
+\textbf{Student:} ``When $t$ is large, use Padé Approximation.''
+\end{quote}
+
+The student's terse contributions reflected focused conceptual engagement rather than disengagement. By dialogue's end, the student independently proposed Padé approximation for large time intervals, demonstrating Inventising-level adaptation. The AI's analytical tone matched the student's preference for ``structured, logical explanations without analogies.''
+
+\paragraph{Mid-Range Case: P123-GX-S6 (33.7\% student talk)}
+This transcript exemplified balanced collaboration. The student alternated between accepting AI scaffolding and asserting agency, particularly when exploring Taylor approximations for the normal distribution. After initially struggling to identify an appropriate real-world scenario, folding-back from Image-Making to Primitive Doing allowed reconstruction: ``It's impossible to find the area under the curve of the normal distribution.'' 
+
+\begin{quote}
+\small\itshape
+\textbf{Student:} ``It's impossible to find the area under the curve of the normal distribution.''
+
+\textbf{AI:} ``Ah, the classic normal distribution curve! A perfect choice---it's everywhere (literally, since it's normal), but its antiderivative is famously impossible to express with elementary functions. [...] The normal distribution predicts everything from IQ scores to measurement errors. But to find probabilities (areas under the curve), we're stuck with numerical hacks. Why? Because $\int e^{-x^2/2} dx$ has no 'nice' formula. So how do calculators and statisticians do it?''
+
+\textbf{Student:} ``[After working through approximation] My linear approximation fails after 100 km altitude---should I use quadratic?''
+
+\textbf{AI:} ``Taylor polynomials are decent near $x=0$ but explode for large $x$.''
+
+\textbf{Student:} ``Try $[-0.5, 0.5]$. [...] The Taylor expansion of $\ln(1+x)$ converges in $(-1, 1)$.''
+\end{quote}
+
+The AI's adaptive prompting facilitated progression to Property-Noticing, where the student recognized approximation limitations and independently proposed interval shrinking. Multiple recursive moments demonstrated iterative refinement as the student moved from calculator design to generalizing convergence properties, ultimately reaching Inventising by applying learned principles to novel engineering contexts.
+
+\FloatBarrier
+\subsection{Supplementary Data: Survey and Graduate Student Insights}
+
+\subsubsection*{Student Survey}
+
+To complement our transcript analysis, we administered a 12-item post-activity survey to all students who participated in the genAI-mediated learning activity. The survey captured demographic background, prior experience with genAI, technology access, and student attitudes toward the use of genAI in mathematics learning. In total, 146 students completed the survey.
+
+As shown in Table 3b, just over half of students (62\%) agreed or strongly agreed that the assignment helped them learn calculus concepts better, while 22\% reported a neutral impact. Regarding attitudes toward genAI for learning, most students (77\%) reported that their attitude was more positive following the assignment, including 42\% who described their attitude as "much more positive." Nineteen percent reported no change, and only a very small number (3\%) indicated that their attitude toward genAI became more negative as a result of the experience.
+
+Table 3a summarizes students' prior experiences and access to genAI and LLMs. As shown in Table 3a, the majority of students reported prior experience with LLMs, with DeepSeek (93\%) and ChatGPT (52\%) being the most widely used platforms. Many students indicated use of multiple LLMs, and only one student reported having no prior experience. Most respondents had used LLMs for at least several months, and over a third had used them for more than a year. Over half (55\%) reported using LLMs in other university courses, while very few had used them only for this course or not at all. In terms of frequency, over half of students (53\%) reported using LLMs several times per week, while an additional 40\% indicated use once a week. Only a small minority used LLMs less than once a week or not at all.
+
+Table 3c highlights findings about genAI usage and institutional context, indicating that the majority of students (69\%) completed the assignment independently. When asked about their typical purposes for using large language models, the most common responses were to help learn or understand new topics (88\%), check or correct their own work (86\%), and search for information (86\%). About one third reported using LLMs for entertainment or curiosity, and a similar percentage (35\%) indicated they use LLMs to complete homework or assignments more quickly. Only a small number of students (4\%) reported other purposes not captured by the listed options.
+\renewcommand{\thetable}{3a}
+\renewcommand{\arraystretch}{0.95}
+\begin{table}[ht]
+\centering
+\small
+\caption{Selected Survey Results: LLM Experience and Use ($N = 144$).}
+\begin{tabular}{p{0.49\linewidth} r r}
+\toprule
+\textbf{Survey Option} & \textbf{Count} & \textbf{\%} \\
+\midrule
+\multicolumn{3}{l}{\textbf{Which large language models (LLMs) have you used before?}} \\
+ChatGPT (OpenAI)         & 75  & 52\% \\
+DeepSeek                 & 134 & 93\% \\
+Claude.ai                & 6   & 4\%  \\
+Other (please specify)   & 51  & 35\% \\
+None before this course  & 0   & 0\%  \\
+[0.5em]
+\multicolumn{3}{l}{\textbf{How long have you been using LLMs?}} \\
+Less than 1 month        & 11  & 8\%  \\
+1--6 months              & 23  & 16\% \\
+7--12 months             & 60  & 42\% \\
+Over 1 year              & 49  & 34\% \\
+I have not used          & 1   & 1\%  \\
+[0.5em]
+\multicolumn{3}{l}{\textbf{Have you used LLMs (like ChatGPT or DeepSeek) in other university courses?}} \\
+Yes, frequently & 79 & 55\% \\
+Yes, sometimes & 62 & 43\% \\
+No, only for this course & 3 & 2\% \\
+No, never & 0 & 0\% \\
+[0.5em]
+\multicolumn{3}{l}{\textbf{How often do you use LLMs?}} \\
+Daily & 0 & 0\% \\
+Never & 4 & 3\% \\
+Less than once a week & 6 & 4\% \\
+Once a week & 57 & 40\% \\
+Several times per week & 77 & 53\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+\FloatBarrier
+
+\renewcommand{\thetable}{3b}
+\renewcommand{\arraystretch}{0.95}
+\begin{table}[ht]
+\centering
+\small
+\caption{Perceived Impact and Attitudes Toward AI ($N = 144$).}
+\begin{tabular}{p{0.57\linewidth} r r}
+\toprule
+\textbf{Option} & \textbf{Count} & \textbf{\% (of 144)} \\
+\midrule
+\multicolumn{3}{l}{\textbf{This assignment helped me learn calculus concepts better}} \\
+Strongly disagree   & 18 & 13\% \\
+Disagree            & 5  & 3\%  \\
+Neutral             & 31 & 22\% \\
+Agree               & 73 & 51\% \\
+Strongly agree      & 17 & 12\% \\
+[0.5em]
+\multicolumn{3}{l}{\textbf{After this assignment, my attitude toward using AI for learning is:}} \\
+Much more positive         & 61 & 42\% \\
+Somewhat more positive     & 51 & 35\% \\
+No change                  & 27 & 19\% \\
+Somewhat more negative     & 4  & 3\%  \\
+Much more negative         & 1  & 1\%  \\
+\bottomrule
+\end{tabular}
+\end{table}
+\FloatBarrier 
+
+\renewcommand{\thetable}{3c}
+\renewcommand{\arraystretch}{0.95}
+\begin{table}[!h]
+\centering
+\small
+\caption{Use Patterns \& Institutional Context ($N = 144$).}
+\begin{tabular}{p{0.55\linewidth} r r}
+\toprule
+\textbf{Option} & \textbf{Count} & \textbf{\% (of 144)} \\
+\midrule
+\multicolumn{3}{l}{\textbf{Did you work alone or with others for this assignment?}} \\
+Alone                                          & 100  & 69\% \\
+With classmates (group discussion)              & 44   & 31\% \\
+Other (please specify)                          & 0    & 0\%  \\
+[0.5em]
+\multicolumn{3}{l}{\textbf{For what purposes do you typically use LLMs?}} \\
+To complete homework or assignments more quickly & 51 & 35\% \\
+To check or correct my own work                  & 124 & 86\% \\
+To help me learn or understand new topics         & 127 & 88\% \\
+To search for information                         & 124 & 86\% \\
+For entertainment or curiosity                    & 47 & 33\% \\
+Other (please specify)                            & 6 & 4\% \\
+[0.5em]
+\multicolumn{3}{l}{\textbf{How do your other professors view the use of AI tools like ChatGPT?}} \\
+They encourage it & 54 & 38\% \\
+They allow it, but do not encourage & 48 & 33\% \\
+They discourage it & 14 & 10\% \\
+I don't know & 27 & 19\% \\
+Not applicable & 0 & 0\% \\
+
+\bottomrule
+\end{tabular}
+\end{table}
+\FloatBarrier
+
+\textbf{Themes from Open-Ended Responses.} In the open-ended survey item, students described a wide range of experiences with genAI for mathematical learning. Many emphasized increased efficiency and convenience, with comments such as “It has given me great convenience and inspiration” and “Using AI for this assignment was really helpful. It quickly explained complex series concepts… but I still had to think hard to understand the steps fully and make sure I could apply the methods myself.” Several students cited the usefulness of genAI for “quickly clarifying confusing concepts” and “saving time and boosting understanding.”
+
+Students also noted that genAI helped foster curiosity and self-directed learning: “It improves my curiosity about AI,” “AI is important in my life,” and “It helps me to understand some knowledge that I do not hear clearly during classes.” Others highlighted the value of personalized feedback and tailored support: “AI did a great job in acting as my teacher” and “It is better to guide AI to help you, instead of just copy from it.”
+
+At the same time, a substantial number of students pointed out limitations and frustrations, such as genAI's tendency to give generic answers, lack real-world examples, or misinterpret questions: "Sometimes I wanted more hints or examples. When the AI just repeated the question, I felt a little lost," and "Sometimes the responses lacked depth or needed further refinement. Overall, it was a positive experience, but human oversight is still essential." These concerns appeared regardless of platform choice, though most students used multiple LLMs throughout the course. Several students mentioned technical challenges (e.g., translation issues, platform limitations) and the importance of double-checking AI-generated answers: "There may be errors in the answer of LLM that need to be carefully identified, and the calculation and process inside should be checked."
+
+A few students were skeptical about genAI’s educational value or preferred traditional methods: “Actually, I don’t believe AI or LLM,” “Interesting but I prefer using books and ppts,” and “This task is a bit time-consuming, and at the same time, I can’t learn anything.” Nonetheless, even critical responses often acknowledged genAI’s potential when used thoughtfully and with guidance.
+
+Overall, students’ reflections highlight both the promise and the current challenges of using genAI for learning mathematics: improved access to explanations and feedback, time-saving, support for independent learning, but also a need for critical engagement, careful verification, and human oversight.
+
+\subsubsection*{Teaching Assistant Interview Insights}
+%\hl{Zheng, let's invite your GA to join us to discuss use of the Taylor Series bot. We can transcribe the chat and then use it to construct a page or so summary of the conversation. It would be really helpful if we could get at least one student to join us.}
+In the follow-up interview, Zheng’s teaching assistant (TA) elaborated on how students approached the genAI Taylor series activity. A key theme was \textbf{accountability and attendance}. The TA noted that because “each student had to sign in” for the AI exercise, attendance was much higher than usual – “they come to class more than…the other typical classes”. Even students who normally skipped class came that day; some arrived late and, as the TA observed, “they only work maybe 30 min per class, and the rest of the time…chat with each other”. In general, the TA felt the AI-based format did engage students more than a typical lecture (“AI engaged the class and…makes them more engaged in the class activity”). He emphasized, however, that weaker students tended to treat the activity as a chore. Many would enter minimal input and let the AI do the heavy lifting: as he put it, students often “respond shortly” to questions while the AI “respond[s] [with] large paragraph[s],” and those “with worst grades…don’t want to respond too much, because this is just a task for them”. This aligns with transcript observations: in several cases the student did nothing but submit the AI’s output, indicating a passive stance by lower-performing students.
+
+Another theme was the \textbf{role of prior knowledge}. The TA explained that a substantial subset of students already knew the Taylor series material from high school. "Many, many students said…[Taylor series] is relatively easy for them." When asked what fraction of the class felt the AI could teach them little because they already knew the content, the TA estimated about "40%." In other words, roughly two-fifths of the students found the topic too basic to learn much. This helps explain mixed survey results: although 62\% of students reported improved understanding, the TA's insight suggests that those gains were largely among the remaining students, while the others were "already learned [it]…so [AI] teach me [not] much."
+
+\textbf{Perceptions of AI} also emerged as an important theme. The TA confirmed that students generally viewed the AI tutor positively, consistent with the survey finding that 77\% reported a more positive attitude toward AI. He noted, however, that some of the high positive-response rates might be inflated by social desirability. For example, he observed that students assumed the instructor could see their survey responses – “they think… the professor [can] see each name of them” – and thus might “inflate their answer…like…[to] kiss the ass of the professor”. He further suggested that the reported 42\% of students who claimed to be “much more positive” about AI after the activity was likely an exaggeration. In his view, “the attitude toward AI is not changing a lot…maybe 42\% is an exaggeration,” and most students were only “a little more positive” than before. In sum, the interview nuance complements the survey: students did appreciate the AI’s personalized support, but the TA reminded the researchers to interpret such self-reports cautiously.
+
+These interview themes dovetail with the study’s broader findings. The TA’s account supports the evidence that the adaptive AI tutor could deepen engagement for motivated learners, while also revealing that a nontrivial portion of students remained passive or merely compliant. His recommendation to require student input (“you must…submit some work…[that] cannot be skipped”) reflects a design implication: embedding turn-taking rules or mandatory steps can prevent students from defaulting to passive reception. Likewise, his observation about prior knowledge suggests refining the module to adjust to students’ backgrounds so that those who “already know this stuff” still face a challenge. Finally, by pointing out potential bias in survey answers, the TA highlights the importance of triangulating questionnaire data with qualitative insights. Overall, the interview confirms the genAI tutor's potential to support learning (students felt more supported and engaged) while adding nuance: future implementations will need to account for varied student agency, ensure active student contributions, and carefully interpret self-reported attitudes.
+
+\section{Discussion \& Implications}
+
+This study examined the integration of a generative AI (genAI) learning partner into a second-semester calculus course, focusing on Taylor series through the lens of Pirie and Kieren’s recursive theory of mathematical understanding. By triangulating transcript analysis, survey responses, and teaching assistant interview insights, we find that genAI---when carefully designed---can serve as both a cognitive scaffold and an affective support system, enabling deeper engagement with advanced mathematical concepts.
+
+\subsection{From Procedural Knowledge to Recursive Understanding}
+
+The transcript data reveal that the genAI learning module not only supported procedural problem-solving but actively facilitated recursive learning cycles. Students frequently engaged in \emph{folding back}---returning from higher conceptual layers such as \textbf{Formalizing} or \textbf{Structuring} to earlier stages like \textbf{Image Making} or \textbf{Property Noticing}---and then rebuilding their reasoning with greater precision (Pirie \& Kieren, 1989). This movement emerged from prompt design that withheld direct answers, instead encouraging reflection, re-visualization, and justification.
+
+For example, in case P01-G8-S4, the student generated a Taylor polynomial, tested it against actual values, recognized approximation limits, and recalculated, demonstrating iterative refinement at the \textbf{Formalizing} level. In P106-GX-S6, the student independently proposed a piecewise approximation strategy to address function variability, illustrating agency and adaptive problem solving at the \textbf{Structuring} level. Such cases exemplify genAI's capacity to foster metacognitive awareness and flexible reasoning, consistent with Pirie--Kieren's model of deepening understanding through recursive action (Pirie \& Kieren, 1989; Rexhepi \& Makasevska, 2024).
+
+\subsection{Engagement Patterns and Affective Shifts}
+
+Survey data indicate that 62\% of students felt the activity improved their understanding of calculus concepts, while 77\% reported a more positive attitude toward AI in learning. Students often described the genAI as a ``tutor'' or ``guide,'' valuing its ability to adjust tone and pacing based on the personality-profiling phase. This personalization appears to have reduced math anxiety, increased willingness to persist through difficulty, and fostered curiosity---outcomes consistent with AIED research highlighting affective supports and real-time responsiveness to learner needs (Holmes \& Bialik, 2023).
+
+However, participation was uneven. Word-count analysis showed that genAI produced roughly 55\% of the dialogue on average, with high-engagement transcripts featuring more balanced exchanges (close to 50--50) and low-engagement cases dominated by short confirmations or direct-answer requests. These differences suggest that while personalization can build rapport, additional conversational structures are needed to ensure students consistently articulate reasoning rather than defaulting to passive reception---a challenge consistent with dialogue-based tutoring systems that must balance scaffolding with student agency (Zhai et al., 2023).
+
+
+\subsection{Design Implications for genAI in Mathematics Education}
+
+Our findings point to five interrelated design considerations for effective genAI-mediated learning in advanced mathematics:
+
+\begin{enumerate}
+\item \textbf{Operationalize Recursive Learning in Prompt Logic:} The finding that 77\% of students exhibited folding-back demonstrates that recursive learning can be systematically cultivated through prompt design (Pirie \& Kieren, 1989; Rexhepi \& Makasevska, 2024). Rather than treating conceptual revision as incidental, prompts should explicitly trigger returns to earlier understanding. For example, when students propose a solution, the AI might respond: "Before we formalize that approach, let's revisit your initial visualization---does it still hold given what you've discovered?" or "You've reached a sophisticated conclusion, but I noticed you skipped image-making. Can you sketch what's happening geometrically?" By embedding such recursive cues throughout the dialogue, designers can make folding-back a predictable and productive part of the learning cycle. This approach transforms the Pirie-Kieren framework from an observational tool into an instructional scaffold.
+    
+    \item \textbf{Balance Personalization with Structured Turn-Taking:} While 77\% of students reported more positive attitudes toward AI after experiencing personalized instruction, word-count analysis revealed a concerning pattern: genAI dominated approximately 55\% of dialogue on average. The personality-profiling phase successfully adapted tone and style, building trust and reducing anxiety (Holmes \& Bialik, 2023), yet many students defaulted to passive reception. Future designs must pair affective personalization with structural constraints that enforce active participation. Examples include: requiring students to generate their own examples before the AI provides one, implementing mandatory "reflection checkpoints" where students must articulate their reasoning in their own words, or adopting a turn-taking protocol where the AI withholds further scaffolding until the student contributes substantive mathematical thinking. The TA's recommendation—"you must submit some work [that] cannot be skipped"—captures this principle: personalization builds rapport, but structure ensures engagement.
+    
+    \item \textbf{Design for Agency, Not Dependence:} Analysis of the 30 anchor cases revealed that students reached Inventising (77\%) not through passively absorbing AI explanations but through agentic moves—proposing alternative strategies, questioning approximation validity, and critically evaluating AI-generated suggestions (Pirie \& Kieren, 1989). However, low-engagement transcripts showed students simply accepting AI output without interrogation. To cultivate agency systematically, prompts should embed explicit opportunities for student-initiated exploration: "Before I suggest an approach, what strategy would \emph{you} try first?" or "I've shown you one method—can you propose an alternative?" Additionally, the AI should occasionally introduce productive errors or incomplete reasoning, requiring students to identify gaps and make corrections. This shifts the AI's role from authoritative instructor to collaborative problem-solver, positioning students as mathematical agents rather than consumers of pre-packaged solutions.
+    
+    \item \textbf{Adapt Content Difficulty, Not Just Pedagogical Style:} The TA interview revealed that approximately 40\% of students already knew Taylor series from high school, creating a ceiling effect where the AI matched learning preferences but not readiness levels. While the personality-profiling phase adapted the AI's \emph{pedagogical style} (humor, directness, scaffolding approach), it did not assess or adapt to students' \emph{mathematical background}. The prompt prescribed a fixed mathematical trajectory—starting with basic Taylor series construction and moving toward real-world applications—regardless of prior knowledge. A more sophisticated design should include an initial mathematical diagnostic (e.g., "Explain what you already know about Taylor series" or "Solve this challenge problem") that triggers branching pathways—guiding novices through foundational concepts while directing advanced students toward deeper exploration of convergence proofs, error bounds, complex-analytic extensions, or applications in numerical methods and differential equations. This aligns with adaptive ITS research emphasizing the importance of adjusting instructional pathways in real time based on student progress and prior knowledge (Holmes \& Bialik, 2023). The current experience demonstrates that adaptive \emph{affect} alone is insufficient; truly personalized learning requires adaptive \emph{content} calibrated to prior knowledge.
+    
+    \item \textbf{Recognize the Irreplaceable Role of Instructor Expertise:} This study demonstrates that genAI can facilitate sophisticated mathematical learning—77\% of students reached Inventising and exhibited recursive thinking patterns—yet the findings simultaneously underscore the continuing importance of human instructional expertise. Effective implementation required careful prompt engineering by the instructor, who designed questions that cultivated productive struggle rather than direct answers, embedded Socratic dialogue structures, and anticipated common misconceptions (Zhai et al., 2023). Students who thrived learned to ask mathematically productive questions of the AI, treating it as a collaborative thinking partner rather than an answer generator. Conversely, weaker students often submitted minimal input, highlighting what happens when instructor-designed scaffolding is absent or students lack metacognitive skills to engage critically. GenAI does not replace teachers; it amplifies their pedagogical decision-making. Instructors must become adept prompt engineers—crafting questions and dialogue structures that push students toward genuine understanding. The implication is clear: genAI has a viable and significant role in mathematics education, but human expertise remains essential for designing learning experiences, modeling mathematical inquiry, interpreting student needs, and teaching students how to learn with AI.
+\end{enumerate}
+
+These design elements are not limited to Taylor series; they offer a transferable framework for integrating genAI into other calculus topics or similarly abstract mathematical domains, particularly those requiring iterative conceptual development and multiple representational forms (Boaler, 1998; Fried, 2001).
+
+\subsection{Researcher Positionality}
+
+This research emerged from a cross-national collaboration among three human researchers and one AI system, all members of the Technology Educator Alliance (TEA)---an organization committed to supporting educators in building more human, creative, and connected classrooms through thoughtful integration of educational technology. We approach this work not as neutral observers but as advocates for the pedagogical potential of generative AI when designed with intentionality and grounded in learning theory. This commitment shaped every phase of the study, from prompt design to data interpretation.
+
+\textbf{Zheng Yang} (Sichuan University) served as the course instructor and brought critical bicultural insights to the project. Having worked as a visiting assistant professor in Ohio for nearly a decade before returning to China, Zheng occupies a unique hybrid position that enabled him to bridge Chinese and American educational perspectives. His deep understanding of Chinese educational culture, particularly around technology adoption and student expectations, proved essential for navigating practical challenges (e.g., VPN requirements for accessing certain AI platforms, leading to DeepSeek as the primary tool) and interpreting student engagement patterns within the specific context of a Chinese university classroom. Zheng developed this full-scale study through iterative design, building on insights from a 2023 pilot with four students.
+
+\textbf{Carlos A. Lopez Gonzalez} (Technology Educator Alliance) designed the original prompt and introduced the Pirie-Kieren framework to the research team. As a data scientist and educator, Tuto brought a pragmatic, engineering-oriented perspective that prioritized reproducibility, computational rigor, and innovative methodological approaches. His expertise in agentic coding workflows and VS Code automation fundamentally shaped our analytical pipeline, enabling scalable transcript processing and AI-assisted qualitative analysis. Tuto's multilingual background and experience navigating multiple educational systems enriched his interpretation of language and cultural dimensions in the student data, particularly regarding the complexities of engaging with genAI across linguistic contexts.
+
+\textbf{Michael Todd Edwards} (Miami University) conducted the Pirie-Kieren Work Analysis Protocol (PK-WAP) coding and served as lead writer. As co-founder of TEA and Armstrong Professor of Education, Todd's research focuses explicitly on AI's evolving role in teaching and learning. His prior collaboration with Zheng began when they shared students at Miami University, with Todd's methods students enrolled in Zheng's abstract algebra course. As a journal editor with extensive experience shepherding manuscripts through peer review, Todd brought deep familiarity with publication norms and scholarly argumentation to the project. His editorial work positioned him to integrate diverse theoretical perspectives and ensure the manuscript speaks to multiple audiences within mathematics education research.
+
+\textbf{GPT-5.1 and Claude Sonnet 4.5} (OpenAI and Anthropic via VS Code) contributed throughout all stages of this research. GPT-5.1 refined the instructional activity design, selected ``noteworthy'' transcripts for analysis, supported literature review and methodological development, and assisted with PK-WAP memo generation and validation. Claude Sonnet 4.5 served as the primary qualitative analysis partner, conducting the systematic PK-WAP coding workflow, automating transcript processing pipelines, generating analytical memos, and supporting manuscript revision. Both AI systems operated within VS Code's Copilot environment, enabling reproducible, version-controlled research workflows. The decision to list both AI models as co-authors reflects our commitment to transparency about AI's substantive intellectual contributions and represents a methodological stance: that AI can serve as a legitimate research collaborator when its role is explicitly documented and its outputs are critically evaluated by human researchers. This choice also signals our belief that emerging AI-assisted research practices require new models of authorship and attribution.
+
+We acknowledge that our collective enthusiasm for genAI as a pedagogical tool, combined with our institutional affiliation with TEA, creates interpretive commitments that shaped what we recognized as evidence of ``sophisticated reasoning'' and ``productive dialogue.'' While Zheng expressed initial hesitancy due to technical and logistical concerns, all three human researchers entered this project optimistic about genAI's potential. These prior commitments are not limitations to be minimized but rather transparent starting points that informed our design choices, theoretical framing, and interpretation of findings.
+
+\subsection{Limitations}
+
+This study did not include a control group receiving traditional instruction, precluding causal claims about genAI's effectiveness relative to conventional teaching methods. The study's scope---one institution, one calculus topic, and a single semester---further limits the generalizability of our conclusions. The novelty of using genAI in this way may have amplified engagement and positive attitudes, raising the question of sustainability over time. Self-reported survey data are subject to bias; as the TA noted, students may have inflated positive responses due to perceived social desirability, and the instructor's visibility may have influenced their self-assessments. Additionally, approximately 40\% of students reported already knowing Taylor series from high school, creating a ceiling effect that limits our ability to assess genAI's impact on learning genuinely novel material.
+
+Transcript analysis captures only the verbal-cognitive dimension of learning, omitting non-verbal reasoning, written work, or peer interactions that may have occurred during the activity. The study was conducted at a Chinese university where students engaged with genAI in their second language; while this reflects authentic global contexts, language barriers may have affected dialogue depth and engagement patterns in ways not fully captured by our analysis. 
+
+Students experienced varied success with the genAI tutor. While many transcripts demonstrated productive dialogue and recursive reasoning, edge cases revealed limitations in AI responsiveness. Some students encountered generic or repetitive AI responses that failed to address their specific questions, as reflected in survey comments like "Sometimes the AI just repeated the question, I felt a little lost" and "Sometimes the responses lacked depth or needed further refinement." Others noted instances where the AI misinterpreted questions or provided incorrect calculations requiring verification: "There may be errors in the answer of LLM that need to be carefully identified." Lower-performing students in particular tended to disengage when the AI's scaffolding felt too generic or when they perceived the activity as a compliance task rather than a learning opportunity. These cases highlight that genAI's instructional quality was constrained by model capabilities and prompt design, with occasional misinterpretations or insufficiently personalized responses shaping the flow of dialogue.
+
+Methodologically, the lead researcher's dual role as both prompt designer and primary analyst introduces potential interpretive bias, though this was partially mitigated through genAI-assisted coding (PK-WAP) and calibration against co-author reviews. The use of genAI for qualitative analysis, while enhancing consistency and scale, remains an emerging practice requiring ongoing validation. All PK-WAP coding represents interpretive judgments grounded in transcript evidence rather than objective measures of learning.
+
+\subsection{Directions for Future Research}
+
+As part of an ongoing DBR cycle, this study represents the second iteration of AI-mediated calculus instruction following initial proof-of-concept work (Edwards et al., 2024). Future investigations should address these limitations while building on the current findings:
+
+\begin{itemize}
+    \item \textbf{Longitudinal Retention and Transfer:} Assess whether recursive, genAI-supported learning yields lasting conceptual understanding and improved performance in subsequent mathematics courses.
+    \item \textbf{Cross-Topic and Cross-Population Studies:} Apply the design to other calculus concepts (e.g., limits, integration techniques) and to more diverse student populations to evaluate scalability and cultural adaptability.
+    \item \textbf{Comparative Efficacy:} Systematically compare this personalized, theory-driven genAI model with traditional instruction and with other AI tutoring systems lacking explicit recursive design.
+    \item \textbf{Assessment Beyond Self-Report:} Develop and validate objective measures of recursive thinking and conceptual growth, including pre/post concept inventories, performance on transfer tasks, and analysis of student-generated artifacts.
+    \item \textbf{Prompt Design and Iteration:} Investigate optimal prompt architectures, including the role of personality profiling, the balance between scaffolding and productive struggle, and mechanisms for real-time adaptation based on student responses.
+    \item \textbf{Collaborative Learning Contexts:} Explore genAI's potential role as a participant in small-group problem solving, not solely as a one-on-one tutor.
+    \item \textbf{Instructor Professional Development:} Research effective training models for helping mathematics instructors become skilled prompt engineers and facilitators of AI-mediated learning.
+    \item \textbf{GenAI as Qualitative Research Partner:} Investigate genAI's capabilities as a systematic coding and analysis tool for qualitative educational research. This study demonstrates proof-of-concept for using genAI to operationalize theory-driven analysis protocols (PK--WAP) at scale while maintaining interpretive depth. Future research should explore calibration procedures, inter-rater reliability between human and AI coders, transparency standards, and ethical guidelines for AI-assisted qualitative analysis---marking a new frontier in educational research methodology.
+    \item \textbf{Ethics and Fairness in AI Design:} Continue refining guidelines for bias mitigation, transparency, and data privacy as genAI becomes a more embedded element of mathematics education.
+\end{itemize}
+
+\subsection{Concluding Reflection}
+
+Our evidence suggests that genAI, when grounded in a robust learning theory and coupled with intentional prompt design, can act as more than a digital tutor---it can become a partner in cultivating mathematical reasoning. The challenge moving forward is to design AI-mediated learning environments that preserve and extend this potential while ensuring equitable access, sustained engagement, and the centrality of student agency in the learning process.
+
+This study also represents a methodological proof-of-concept for a new frontier in educational research: using genAI as a systematic qualitative analysis partner. The PK--WAP protocol (Appendix E \& F) demonstrates that genAI can operationalize complex theoretical frameworks at scale while maintaining interpretive depth and consistency. By processing 30 anchor cases through theory-driven coding, the AI enabled analysis that would have required months of manual work---yet preserved the nuanced, evidence-based reasoning essential to qualitative inquiry. This marks the dawn of a new age in educational research methodology, where human expertise in theory construction and interpretation can be amplified by AI's capacity for systematic pattern recognition and tireless application of coding protocols. Future work must establish standards for transparency, calibration, and validation of AI-assisted qualitative analysis, but the viability of this partnership is no longer speculative.
+
+\subsubsection*{Code and Data Availability}
+The analysis protocols described in this study (Phase I word count screening, PK--WAP coding, and analytic memo generation) were operationalized as Python scripts within the VS Code development environment. These scripts automate transcript selection, batch processing of PK--WAP memos via the OpenAI API, and quality control workflows. All code, analysis protocols, prompts, and documentation are publicly available at: \url{https://github.com/OhioMathTeacher/TEA-AI-Calculus-Code}. Student transcript data remains confidential to protect participant privacy; data access for verification purposes can be arranged by contacting the authors. Full methodological details are provided in Appendices B through F.
+
+
+\input{bibliography.tex}
+\input{appendix.tex}
+\end{document}
