@@ -59,11 +59,11 @@ This document comprehensively catalogues all substantive changes made to the man
 - **Text Added:** "This study did not include a control group receiving traditional instruction, precluding causal claims about genAI's effectiveness relative to conventional teaching methods."
 - **Impact:** Clearly establishes the study's scope and prevents overinterpretation of efficacy claims
 
-### 6. **Ensure Terminology Consistency - GA/TA (Recommendation #6)**
+### 6. **Ensure Terminology Consistency - GS/TA (Recommendation #6)**
 **Status: COMPLETED**
-- **Action Taken:** Standardized all references to "GA" (Graduate Assistant) throughout the manuscript
+- **Action Taken:** Standardized all references to "GS" (Graduate Student) throughout the manuscript
 - **Implementation:** Used global find-and-replace to ensure consistency across all sections
-- **Impact:** Eliminates confusion between TA/GA terminology that appeared inconsistently in earlier draft
+- **Impact:** Eliminates confusion between TA/GS terminology that appeared inconsistently in earlier draft
 
 ### 7. **Moderate Subjective Language (Recommendation #8)**
 **Status: COMPLETED**
@@ -217,13 +217,13 @@ Beyond the reviewer's recommendations, we conducted a thorough verification of a
 
 **Impact:** Readers can now see authentic dialogue demonstrating folding-back, agency, and mathematical reasoning
 
-### 10. **Terminology Consistency - GA/TA Standardization** ✅
-**Reviewer Note:** Inconsistent use of "TA" vs "GA" for graduate assistant
+### 10. **Terminology Consistency - GS/TA Standardization** ✅
+**Reviewer Note:** Inconsistent use of "TA" vs "GS" for graduate student
 
-**Action Taken:** Global replacement of all "TA" references with "GA" (Graduate Assistant)
-- Methods section: "the GA (Graduate Assistant) observed students"
-- Discussion and implications: All "TA" instances changed to "GA"
-- Interview data references: "the GA noted," "the GA estimated," "the GA reminded"
+**Action Taken:** Global replacement of all "TA" references with "GS" (Graduate Student)
+- Methods section: "the GS (Graduate Student) observed students"
+- Discussion and implications: All "TA" instances changed to "GS"
+- Interview data references: "the GS noted," "the GS estimated," "the GS reminded"
 
 **Locations Updated:** 10+ instances across main.tex and methods.tex
 
@@ -311,11 +311,11 @@ Edwards, M., Yang, Z., & Lopez-Gonzalez, C. (2024). Fostering culturally-respons
 
 **Impact:** Clarifies roles without using first names that don't appear in author list
 
-### 18. **Data Collection Timing - Graduate Assistant Title** ✅
+### 18. **Data Collection Timing - Graduate Student Title** ✅
 **Original:** "graduate teaching assistant (GA)"
-**Revised:** "graduate assistant (GA)"
+**Revised:** "graduate student (GS)"
 
-**Additional Detail Added:** "One week after the end of the course, we conducted a semi-structured interview with the graduate assistant"
+**Additional Detail Added:** "One week after the end of the course, we conducted a semi-structured interview with the graduate student"
 
 **Impact:** More accurate job title and precise timing information
 
@@ -374,14 +374,14 @@ Edwards, M., Yang, Z., & Lopez-Gonzalez, C. (2024). Fostering culturally-respons
 
 **Impact:** Logical sequencing that matches actual timeline
 
-### 27. **Graduate Assistant Interview Context** ✅
+### 27. **Graduate Student Interview Context** ✅
 **Enhanced:** Interview description now emphasizes:
 - Timing: "One week after the end of the course"
-- GA's unique positionality: "neither a professor nor an undergraduate student—positioned between the instructor and the course participants"
+- GS's unique positionality: "neither a professor nor an undergraduate student—positioned between the instructor and the course participants"
 - Observational advantage: "Having collected all submitted transcripts and observed students throughout the activity session"
 - Data triangulation role
 
-**Impact:** Clearer methodological justification for including GA perspective
+**Impact:** Clearer methodological justification for including GS perspective
 
 ---
 
