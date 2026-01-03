@@ -457,31 +457,33 @@ Students exhibited agency even when the AI dominated talk time. Common agentic b
 
 To illustrate these themes, we present three vignettes representing high-talk, low-talk, and mid-range engagement patterns.
 
-\paragraph{High-Talk Case: P76-GX-S6 (76.1\% student talk)}
-This student engaged in extended mathematical dialogue while designing a deep-sea breathing alert system using Taylor series. Facing the ``ghost term problem'' when initial expansion at $x=0$ produced vanishing terms, the student independently proposed shifting the series to $x=2$, demonstrating Property-Noticing transitioning to Formalising. 
+\paragraph{High-Talk Case: P03-GX-SX (86.9\% student talk)}
+This student engaged in extended mathematical reasoning while designing a Mars rover trajectory system using Taylor polynomials for exponential approximation. The dialogue progressed through systematic derivation as the student independently identified computational constraints and proposed solutions, demonstrating Formalising-level reasoning through rigorous analysis of hardware limitations.
 
 \begin{quote}
 \small\itshape
-\textbf{Student:} ``Let's first tackle the 'ghost term problem'. When the function and its derivatives are zero at $x = 0$, the first few terms of the Taylor expansion will all be zero. Looking at the graph of $\sin(\pi x)$ near the origin, we know that although the function value and its first few derivatives are zero at $x = 0$, we can't just rely on the first few terms. We need to calculate more terms of the Taylor series. [...] For the 'depth dilemma', when the diver is at $x = 2$ instead of $x = 0$, the Taylor expansion centered at $x = 0$ may not be very accurate. This is where the idea of a translated Taylor series comes in handy. We should expand the function $f(x)$ around $x = 2$ instead of $x = 0$. Let $y=x - 2$, so $x=y + 2$. Then we find the Taylor series of $f(y + 2)$ with respect to $y$. By doing this, we can get a better approximation for the function value at $x=2$. [...] What do you think about my solutions?''
+\textbf{Student:} ``The critical physics function is exponential decay/growth. During Mars descent, the rover's velocity under atmospheric drag follows equations such as $v(t) = \frac{mg}{k}(1 - e^{-\frac{k}{m}t})$. The term $e^{-\frac{k}{m}t}$ requires exponential computation. The rover's navigation system, limited to basic arithmetic operations (add/subtract/multiply), cannot compute exponentials in real time. [...] The rover cannot compute $e^{-x}$ directly because its hardware lacks the capacity to perform infinite series summation or iterative approximations in real time.''
 
-\textbf{AI:} ``Brilliant! You've just cracked three centuries-old puzzles---let's verify these ingenious ideas like 18th-century mathematicians with quill pens...''
+\textbf{AI:} ``Sharp answer. Let's tighten this. Why is this function structurally impossible for the rover to compute?''
+
+\textbf{Student:} ``The 3rd-degree Taylor polynomial for $f(x) = e^{-x}$ is: $P_3(x) = 1 - x + \frac{x^2}{2} - \frac{x^3}{6}$. [...] The approximation is mission-critical and valid within the rover's operational envelope.''
 \end{quote}
 
-The student exhibited strong agency, explicitly asking ``What do you think of my solutions?'' Multiple folding-back moments occurred as the student revisited error estimation approaches, demonstrating Formalising-level reasoning through systematic construction of translated Taylor series. The AI provided supportive historical context while allowing student-driven problem-solving.
+The student exhibited strong agency, systematically working through computational constraints without explicit prompting. Multiple folding-back moments occurred as the student revisited hardware limitations and error analysis, ultimately deriving a complete workflow using Horner's method. The AI's Hermione-style rigor (``Sharp answer. Let's tighten this.'') matched the student's preference for direct, factual exchanges.
 
-\paragraph{Mid-Range Case: P13-G4-S5 (48.9\% student talk)}
-With nearly balanced dialogue, this student demonstrated sophisticated mathematical reasoning through efficient, precise exchanges focused on satellite position prediction with non-linear drag forces. When initially proposing $F=kv$ (linear drag), the AI's direct correction (``Your proposal is linear drag, not non-linear'') prompted immediate folding-back to Image-Making, where the student reconstructed understanding and refined the function to $F_d(v,h)=\frac{C_d A \rho(h)v^2}{2}$. 
+\paragraph{Mid-Range Case: P99-G2-S4 (48.6\% student talk)}
+With nearly balanced dialogue, this student demonstrated sophisticated mathematical reasoning through precise exchanges focused on semiconductor conductivity calculations using the Fermi-Dirac distribution. When the AI challenged the student to identify computational bottlenecks, the student's detailed analysis prompted systematic progression through Property-Noticing to Formalising as they derived a complete Taylor approximation.
 
 \begin{quote}
 \small\itshape
-\textbf{Student:} ``Ignoring $h$ violates the original problem's constraints (altitude-dependent drag). However, if we strictly isolate $v$: [...]''
+\textbf{Student:} ``The main reason engineers can't use the exact function is the high computational cost. The Fermi-Dirac distribution involves complex integrals and exponential operations. [...] For the Taylor expansion around the fixed temperature $T_0 = 300K$, a suitable temperature range could be 280K--320K.''
 
-\textbf{AI:} ``Correct. Now, derive the 2nd-order Taylor polynomial $T_2(t)$ for $v(t) = \frac{v_0}{1+v_0 a t}$ centered at $t = 0$. [...] Step 2: Construct $T_2(t)$: $T_2(t) = v_0 - v_0^2 a t + v_0^3 a^2 t^2$. Step 3: Why is this practical? No division: Only multiplications/additions, which are hardware-friendly. Explicit error control: The error term $R_2(t)$ decays rapidly for small $t$.''
+\textbf{AI:} ``Precision. That's the discipline. You've identified the bottleneck: Fermi-Dirac's integrals are too slow for nanosecond-scale decisions. Now, we weaponize Taylor.''
 
-\textbf{Student:} ``When $t$ is large, use Padé Approximation.''
+\textbf{Student:} ``Before constructing this approximation, I mainly regarded the Taylor series as an abstract mathematical tool. However, through this process, I've come to see it as an essential engineering survival tactic.''
 \end{quote}
 
-The student's precise contributions reflected focused conceptual engagement. By dialogue's end, the student independently proposed Padé approximation for large time intervals, demonstrating sophisticated Formalising-level reasoning that connected approximation techniques to practical constraints. The AI's analytical tone matched the student's preference for ``structured, logical explanations without analogies.''
+The student's precise contributions reflected focused conceptual engagement with real-world constraints. By dialogue's end, the student independently recognized that ``every approximation in engineering has blood behind it,'' demonstrating sophisticated Formalising-level reasoning that connected mathematical techniques to practical engineering consequences. The AI's disciplined coaching style (``This is why we train'') matched the student's preference for structured, rigorous explanations.
 
 \paragraph{Low-Talk Case: P123-GX-S6 (15.3\% student talk)}
 Despite limited verbal output in this AI-dominated dialogue, the student demonstrated agency when exploring Taylor approximations for the normal distribution. After initially struggling to identify an appropriate real-world scenario, folding-back from Image-Making to Primitive Knowing allowed reconstruction: ``It's impossible to find the area under the curve of the normal distribution.'' 
