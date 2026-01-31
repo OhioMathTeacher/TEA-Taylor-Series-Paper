@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transcript Reviewer - Noteworthy Case Selection</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .progress-bar {
+            flex-grow: 1;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin: 0 15px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+            transition: width 0.3s ease;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 20px;
+        }
+        
+        .viewer-panel {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .info-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .transcript-id {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .stat-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #999;
+        }
+        
+        .stat-value {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+        }
+        
+        .file-viewer {
+            width: 100%;
+            height: 700px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #fafafa;
+        }
+        
+        .no-file {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #999;
+            font-size: 16px;
+        }
+        
+        .controls-panel {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 20px;
+        }
+        
+        .tag-section {
+            margin-bottom: 25px;
+        }
+        
+        .tag-section h3 {
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .tag-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tag-btn {
+            padding: 8px 14px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+        
+        .tag-btn:hover {
+            border-color: #4CAF50;
+            background: #f1f8f4;
+        }
+        
+        .tag-btn.active {
+            border-color: #4CAF50;
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .notes-section {
+            margin-bottom: 25px;
+        }
+        
+        .notes-area {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+        }
+        
+        .notes-area:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-noteworthy {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .btn-noteworthy:hover {
+            background: #45a049;
+        }
+        
+        .btn-noteworthy.selected {
+            background: #FF9800;
+        }
+        
+        .btn-skip {
+            background: #f5f5f5;
+            color: #666;
+        }
+        
+        .btn-skip:hover {
+            background: #e0e0e0;
+        }
+        
+        .btn-export {
+            background: #2196F3;
+            color: white;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #eee;
+        }
+        
+        .btn-export:hover {
+            background: #0b7dda;
+        }
+        
+        .navigation {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .btn-nav {
+            flex: 1;
+            background: #666;
+            color: white;
+        }
+        
+        .btn-nav:hover {
+            background: #555;
+        }
+        
+        .btn-nav:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .selection-count {
+            text-align: center;
+            padding: 15px;
+            background: #f1f8f4;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Noteworthy Case Selection Tool</h1>
+            <p>Review middle-range transcripts and identify cases with GenAI errors, creative detours, language-switching, or interesting conceptual moves.</p>
+            
+            <div class="progress">
+                <span id="progress-text">Case 0 of {{ total }}</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                </div>
+                <span id="selected-count">0 selected</span>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="viewer-panel">
+                <div class="info-bar">
+                    <div class="transcript-id" id="transcript-id">Loading...</div>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Student Talk</span>
+                            <span class="stat-value" id="pct-student">--</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Total Words</span>
+                            <span class="stat-value" id="total-words">--</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <iframe class="file-viewer" id="file-viewer"></iframe>
+            </div>
+            
+            <div class="controls-panel">
+                <div class="selection-count" id="selection-count">
+                    0 / 10 noteworthy cases selected
+                </div>
+                
+                <div class="tag-section">
+                    <h3>What makes this noteworthy?</h3>
+                    <div class="tag-buttons">
+                        <button class="tag-btn" data-tag="genai-error">🤖 GenAI Error</button>
+                        <button class="tag-btn" data-tag="creative-detour">🎨 Creative Detour</button>
+                        <button class="tag-btn" data-tag="language-switch">🌐 Language Switch</button>
+                        <button class="tag-btn" data-tag="conceptual-move">💡 Conceptual Move</button>
+                        <button class="tag-btn" data-tag="tech-difficulty">⚠️ Tech Issue</button>
+                        <button class="tag-btn" data-tag="high-engagement">⭐ High Engagement</button>
+                    </div>
+                </div>
+                
+                <div class="notes-section">
+                    <h3>Notes (optional)</h3>
+                    <textarea class="notes-area" id="notes" placeholder="Any specific observations about this case..."></textarea>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-noteworthy" id="btn-noteworthy">
+                        ⭐ Mark as Noteworthy
+                    </button>
+                    <button class="btn btn-skip" id="btn-skip">
+                        → Skip to Next
+                    </button>
+                    
+                    <div class="navigation">
+                        <button class="btn btn-nav" id="btn-prev">← Previous</button>
+                        <button class="btn btn-nav" id="btn-next">Next →</button>
+                    </div>
+                    
+                    <button class="btn btn-export" id="btn-export">
+                        📥 Export Selections (CSV)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentIndex = 0;
+        let currentCandidate = null;
+        let selectedTags = new Set();
+        
+        // Load candidate
+        async function loadCandidate(index) {
+            try {
+                const response = await fetch(`/api/candidate/${index}`);
+                const data = await response.json();
+                
+                if (data.error) {
+                    alert('No more candidates');
+                    return;
+                }
+                
+                currentIndex = index;
+                currentCandidate = data;
+                
+                // Update UI
+                document.getElementById('transcript-id').textContent = data.transcript_id;
+                document.getElementById('pct-student').textContent = `${data.pct_student}%`;
+                document.getElementById('total-words').textContent = data.total;
+                document.getElementById('progress-text').textContent = `Case ${index + 1} of ${data.index !== undefined ? '{{ total }}' : '??'}`;
+                
+                const progress = ((index + 1) / {{ total }}) * 100;
+                document.getElementById('progress-fill').style.width = `${progress}%`;
+                
+                // Load file
+                if (data.file_path) {
+                    document.getElementById('file-viewer').src = `/api/file/${index}`;
+                } else {
+                    document.getElementById('file-viewer').srcdoc = '<div class="no-file">Original file not found</div>';
+                }
+                
+                // Update selection state
+                const btnNoteworthy = document.getElementById('btn-noteworthy');
+                if (data.selected) {
+                    btnNoteworthy.classList.add('selected');
+                    btnNoteworthy.textContent = '✓ Selected as Noteworthy';
+                } else {
+                    btnNoteworthy.classList.remove('selected');
+                    btnNoteworthy.textContent = '⭐ Mark as Noteworthy';
+                }
+                
+                // Restore tags
+                selectedTags = new Set(data.tags || []);
+                updateTagButtons();
+                
+                // Restore notes
+                document.getElementById('notes').value = data.notes || '';
+                
+                // Update navigation
+                document.getElementById('btn-prev').disabled = (index === 0);
+                document.getElementById('btn-next').disabled = (index >= {{ total }} - 1);
+                
+                // Update summary
+                updateSummary();
+                
+            } catch (error) {
+                console.error('Error loading candidate:', error);
+            }
+        }
+        
+        // Update tag buttons
+        function updateTagButtons() {
+            document.querySelectorAll('.tag-btn').forEach(btn => {
+                const tag = btn.dataset.tag;
+                if (selectedTags.has(tag)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+        
+        // Update summary
+        async function updateSummary() {
+            const response = await fetch('/api/summary');
+            const data = await response.json();
+            document.getElementById('selected-count').textContent = `${data.selected_count} selected`;
+            document.getElementById('selection-count').textContent = `${data.selected_count} / 10 noteworthy cases selected`;
+        }
+        
+        // Tag button click
+        document.querySelectorAll('.tag-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tag = btn.dataset.tag;
+                if (selectedTags.has(tag)) {
+                    selectedTags.delete(tag);
+                } else {
+                    selectedTags.add(tag);
+                }
+                updateTagButtons();
+            });
+        });
+        
+        // Mark as noteworthy
+        document.getElementById('btn-noteworthy').addEventListener('click', async () => {
+            if (!currentCandidate) return;
+            
+            const isCurrentlySelected = currentCandidate.selected;
+            
+            if (isCurrentlySelected) {
+                // Unselect
+                await fetch('/api/unselect', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({transcript_id: currentCandidate.transcript_id})
+                });
+            } else {
+                // Select
+                await fetch('/api/select', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        transcript_id: currentCandidate.transcript_id,
+                        tags: Array.from(selectedTags),
+                        notes: document.getElementById('notes').value,
+                        pct_student: currentCandidate.pct_student,
+                        total_words: currentCandidate.total
+                    })
+                });
+            }
+            
+            // Reload current to update state
+            await loadCandidate(currentIndex);
+        });
+        
+        // Skip
+        document.getElementById('btn-skip').addEventListener('click', () => {
+            if (currentIndex < {{ total }} - 1) {
+                loadCandidate(currentIndex + 1);
+                selectedTags.clear();
+                document.getElementById('notes').value = '';
+            }
+        });
+        
+        // Navigation
+        document.getElementById('btn-prev').addEventListener('click', () => {
+            if (currentIndex > 0) {
+                loadCandidate(currentIndex - 1);
+            }
+        });
+        
+        document.getElementById('btn-next').addEventListener('click', () => {
+            if (currentIndex < {{ total }} - 1) {
+                loadCandidate(currentIndex + 1);
+            }
+        });
+        
+        // Export
+        document.getElementById('btn-export').addEventListener('click', () => {
+            window.location.href = '/api/export';
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                loadCandidate(currentIndex - 1);
+            } else if (e.key === 'ArrowRight' && currentIndex < {{ total }} - 1) {
+                loadCandidate(currentIndex + 1);
+            } else if (e.key === 'Enter' && e.ctrlKey) {
+                document.getElementById('btn-noteworthy').click();
+            } else if (e.key === ' ' && e.ctrlKey) {
+                e.preventDefault();
+                document.getElementById('btn-skip').click();
+            }
+        });
+        
+        // Load first candidate on page load
+        loadCandidate(0);
+    </script>
+</body>
+</html>
